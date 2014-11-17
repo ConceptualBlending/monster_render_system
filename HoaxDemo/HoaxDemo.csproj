@@ -80,9 +80,9 @@
     <None Include="Info.plist" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Game1.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="MonsterRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Assets\logo.png" />
@@ -96,7 +96,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\Array2D.Framework\Hoax.Framework.csproj">
+    <ProjectReference Include="..\Hoax.Framework\Hoax.Framework.csproj">
       <Project>{46338DEA-3D02-4818-B122-E3C557E573A1}</Project>
       <Name>Hoax.Framework</Name>
     </ProjectReference>

@@ -5,7 +5,7 @@ using System.Linq;
 using MonoMac.AppKit;
 using MonoMac.Foundation;
 
-namespace HoaxDemo
+namespace MonsterRenderer
 {
 	static class Program
 	{
@@ -27,11 +27,11 @@ namespace HoaxDemo
 
 	class AppDelegate : NSApplicationDelegate
 	{
-		Game1 game;
+		MonsterRenderer game;
 
 		public override void FinishedLaunching (MonoMac.Foundation.NSObject notification)
 		{
-			game = new Game1 ();
+			game = new MonsterRenderer ();
 			game.Run ();
 		}
 
