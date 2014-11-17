@@ -1,4 +1,8 @@
-hoax
-====
+monster_render_system
+=====================
 
-Compact game development framework for creating awesome 2D games.
+Scientific team projects for master students of the Faculty of Computer Science (FIN).
+
+Computational Conceptual Blending: a team of 4-6 students lead by Mihai Codescu, Fabian Neuhaus, Madhura Thosar
+
+This repository contains the tool to render the output by conceptual blending to an image. 
