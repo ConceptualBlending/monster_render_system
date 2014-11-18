@@ -3,11 +3,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{57B79967-20B0-43BC-A2C5-29F6077A09E1}</ProjectGuid>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{46EF16D1-2E64-4720-933F-2105F3A7159C}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Medusa</RootNamespace>
-    <AssemblyName>Medusa</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <RootNamespace>MedusaCore</RootNamespace>
+    <AssemblyName>Medusa-Core</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -32,10 +33,13 @@
     <Compile Include="Renderer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Hoax.Framework\Hoax.Framework.csproj">
-      <Project>{46338DEA-3D02-4818-B122-E3C557E573A1}</Project>
-      <Name>Hoax.Framework</Name>
+    <ProjectReference Include="..\Hoax-Framework\Hoax-Framework.csproj">
+      <Project>{A1110616-0B67-4E2D-9F35-E7A788C1CC6B}</Project>
+      <Name>Hoax-Framework</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\logo.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Lidgren.Network">

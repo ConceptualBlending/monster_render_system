@@ -9,6 +9,8 @@
     <RootNamespace>MedusaMacOS</RootNamespace>
     <MonoMacResourcePrefix>Resources</MonoMacResourcePrefix>
     <AssemblyName>Medusa-MacOS</AssemblyName>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -22,7 +24,6 @@
     <UseSGen>false</UseSGen>
     <IncludeMonoRuntime>false</IncludeMonoRuntime>
     <EnablePackageSigning>false</EnablePackageSigning>
-    <CodeSigningKey>Mac Developer</CodeSigningKey>
     <EnableCodeSigning>false</EnableCodeSigning>
     <CreatePackage>false</CreatePackage>
   </PropertyGroup>
@@ -61,14 +62,11 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
-    <Reference Include="Lidgren.Network">
-      <HintPath>..\..\..\Library\Application Support\XamarinStudio-5.0\LocalInstall\Addins\MonoDevelop.MonoGame.3.2.0.2\templates\MonoGameApplication\assemblies\MacOS\Lidgren.Network.dll</HintPath>
+    <Reference Include="MonoMac">
+      <HintPath>..\HoaxDemo\packages\MonoMac.dll</HintPath>
     </Reference>
     <Reference Include="MonoGame.Framework">
       <HintPath>..\..\..\Library\Application Support\XamarinStudio-5.0\LocalInstall\Addins\MonoDevelop.MonoGame.3.2.0.2\templates\MonoGameApplication\assemblies\MacOS\MonoGame.Framework.dll</HintPath>
-    </Reference>
-    <Reference Include="MonoMac">
-      <HintPath>..\HoaxDemo\packages\MonoMac.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -87,9 +85,9 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\Medusa\Medusa.csproj">
-      <Project>{57B79967-20B0-43BC-A2C5-29F6077A09E1}</Project>
-      <Name>Medusa</Name>
+    <ProjectReference Include="..\Medusa-Core\Medusa-Core.csproj">
+      <Project>{46EF16D1-2E64-4720-933F-2105F3A7159C}</Project>
+      <Name>Medusa-Core</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>
