@@ -1,11 +1,12 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 using MonoMac.AppKit;
 using MonoMac.Foundation;
 
-namespace MonsterRenderer
+namespace MedusaMacOS
 {
 	static class Program
 	{
@@ -27,11 +28,11 @@ namespace MonsterRenderer
 
 	class AppDelegate : NSApplicationDelegate
 	{
-		MonsterRenderer game;
+		Game1 game;
 
 		public override void FinishedLaunching (MonoMac.Foundation.NSObject notification)
 		{
-			game = new MonsterRenderer ();
+			game = new Game1 ();
 			game.Run ();
 		}
 

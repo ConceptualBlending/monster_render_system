@@ -60,9 +60,6 @@
     <Reference Include="MonoGame.Framework">
       <HintPath>..\..\..\Library\Application Support\XamarinStudio-5.0\LocalInstall\Addins\MonoDevelop.MonoGame.3.2.0.2\templates\MonoGameApplication\assemblies\MacOS\MonoGame.Framework.dll</HintPath>
     </Reference>
-    <Reference Include="MonoMac">
-      <HintPath>..\..\..\Library\Application Support\XamarinStudio-5.0\LocalInstall\Addins\MonoDevelop.MonoGame.3.2.0.2\templates\MonoGameApplication\assemblies\MacOS\MonoMac.dll</HintPath>
-    </Reference>
     <Reference Include="Lidgren.Network">
       <HintPath>..\..\..\Library\Application Support\XamarinStudio-5.0\LocalInstall\Addins\MonoDevelop.MonoGame.3.2.0.2\templates\MonoGameApplication\assemblies\MacOS\Lidgren.Network.dll</HintPath>
     </Reference>

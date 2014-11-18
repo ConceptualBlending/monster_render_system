@@ -4,12 +4,11 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectTypeGuids>{948B3504-5B70-4649-8FE4-BDE1FB46EC69};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <ProjectGuid>{F86E437B-DCEC-45E6-BDD9-65467069146C}</ProjectGuid>
+    <ProjectGuid>{D8500454-CE92-4430-841D-C15E809C6A35}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Array2DDemo</RootNamespace>
+    <RootNamespace>MedusaMacOS</RootNamespace>
     <MonoMacResourcePrefix>Resources</MonoMacResourcePrefix>
-    <AssemblyName>Array2DDemo</AssemblyName>
-    <SuppressXamMacUpsell>True</SuppressXamMacUpsell>
+    <AssemblyName>Medusa-MacOS</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -23,6 +22,7 @@
     <UseSGen>false</UseSGen>
     <IncludeMonoRuntime>false</IncludeMonoRuntime>
     <EnablePackageSigning>false</EnablePackageSigning>
+    <CodeSigningKey>Mac Developer</CodeSigningKey>
     <EnableCodeSigning>false</EnableCodeSigning>
     <CreatePackage>false</CreatePackage>
   </PropertyGroup>
@@ -33,13 +33,11 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <LinkMode>SdkOnly</LinkMode>
     <UseSGen>false</UseSGen>
-    <IncludeMonoRuntime>true</IncludeMonoRuntime>
+    <IncludeMonoRuntime>false</IncludeMonoRuntime>
     <EnablePackageSigning>false</EnablePackageSigning>
-    <CodeSigningKey>Developer ID Application</CodeSigningKey>
-    <EnableCodeSigning>true</EnableCodeSigning>
-    <CreatePackage>true</CreatePackage>
+    <EnableCodeSigning>false</EnableCodeSigning>
+    <CreatePackage>false</CreatePackage>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AppStore|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -63,14 +61,14 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
-    <Reference Include="MonoMac">
-      <HintPath>packages\MonoMac.dll</HintPath>
+    <Reference Include="Lidgren.Network">
+      <HintPath>..\..\..\Library\Application Support\XamarinStudio-5.0\LocalInstall\Addins\MonoDevelop.MonoGame.3.2.0.2\templates\MonoGameApplication\assemblies\MacOS\Lidgren.Network.dll</HintPath>
     </Reference>
     <Reference Include="MonoGame.Framework">
-      <HintPath>packages\MonoGame.Framework.dll</HintPath>
+      <HintPath>..\..\..\Library\Application Support\XamarinStudio-5.0\LocalInstall\Addins\MonoDevelop.MonoGame.3.2.0.2\templates\MonoGameApplication\assemblies\MacOS\MonoGame.Framework.dll</HintPath>
     </Reference>
-    <Reference Include="Lidgren.Network">
-      <HintPath>packages\Lidgren.Network.dll</HintPath>
+    <Reference Include="MonoMac">
+      <HintPath>..\HoaxDemo\packages\MonoMac.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -80,28 +78,18 @@
     <None Include="Info.plist" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Game1.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MonsterRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Assets\logo.png" />
-    <BundleResource Include="Assets\texture2d\stage.png" />
-    <BundleResource Include="Assets\textures\array2d\abstractEntity.png" />
-    <BundleResource Include="Assets\textures\array2d\actorEntity.png" />
-    <BundleResource Include="Assets\textures\array2d\cameraEntity.png" />
-    <BundleResource Include="Assets\textures\array2d\soundEntity.png" />
-    <BundleResource Include="Assets\textures\array2d\tilesetEntity.png" />
-    <BundleResource Include="Assets\tilemap.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\Hoax.Framework\Hoax.Framework.csproj">
-      <Project>{46338DEA-3D02-4818-B122-E3C557E573A1}</Project>
-      <Name>Hoax.Framework</Name>
+    <ProjectReference Include="..\Medusa\Medusa.csproj">
+      <Project>{57B79967-20B0-43BC-A2C5-29F6077A09E1}</Project>
+      <Name>Medusa</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Assets\textures\" />
   </ItemGroup>
 </Project>

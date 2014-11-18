@@ -1,37 +1,12 @@
-﻿#region File Description
-//-----------------------------------------------------------------------------
-// Array2DDemoGame.cs
-//
-// Microsoft XNA Community Game Platform
-// Copyright (C) Microsoft Corporation. All rights reserved.
-//-----------------------------------------------------------------------------
-using System.Collections.Generic;
-using System.Diagnostics;
-using Hoax.Framework.Components.Graphics2D;
-using Hoax.Framework.Components.StateMachine;
-
-
-#endregion
-
-#region Using Statements
-using System;
-
+﻿using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Input.Touch;
-using Microsoft.Xna.Framework.Storage;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Media;
+using Hoax.Framework.Components.Graphics2D;
 
-
-#endregion
-
-namespace MonsterRenderer
+namespace Medusa
 {
-	public class MonsterRenderer : Game
-	{
+public abstract class Renderer : Game
+{
 
 		#region Fields
 
@@ -45,7 +20,7 @@ namespace MonsterRenderer
 
 		#region Initialization
 
-		public MonsterRenderer ()
+		public Renderer ()
 		{
 
 			graphics = new GraphicsDeviceManager (this);
@@ -53,8 +28,6 @@ namespace MonsterRenderer
 			Content.RootDirectory = "Assets";
 
 			graphics.IsFullScreen = false;
-
-			Window.Title = "Medusa";
 
 			sceneGraph = new SceneGraph (this);
 			sprite1 = new Sprite ("S1", "logo.png");
@@ -73,7 +46,7 @@ namespace MonsterRenderer
 			sceneGraph.RootNode += sprite1;
 			sceneGraph.RootNode += sprite4;
 		}
-			
+
 		protected override void Initialize ()
 		{
 			base.Initialize ();
@@ -99,7 +72,7 @@ namespace MonsterRenderer
 
 			// TODO: This should force a world rotation for all attached childs
 			sprite1.Rotate (degree += 0.02f);
-	
+
 			float mx = (float) Math.Sin (gameTime.TotalGameTime.TotalMilliseconds / 400) * 100;
 			sprite1.Move (new Vector2(200 + mx,300));
 			sprite4.Move (new Vector2(200,300 - mx));
@@ -117,7 +90,7 @@ namespace MonsterRenderer
 					Sprite sprite = (Sprite) node;
 					spriteBatch.Draw(sprite.Texture, sprite.Transformation2D.WorldPosition, sprite.Texture.Bounds, Color.White, sprite.Transformation2D.WorldRotation, sprite.Transformation2D.PivotPoint, sprite.Transformation2D.WorldScale, SpriteEffects.None, 1);
 				}} );
-					
+
 			spriteBatch.End ();
 
 			base.Draw(gameTime);
@@ -128,3 +101,4 @@ namespace MonsterRenderer
 
 	}
 }
+
