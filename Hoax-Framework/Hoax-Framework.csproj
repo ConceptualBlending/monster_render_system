@@ -59,5 +59,23 @@
     <Compile Include="Core\Node.cs" />
     <Compile Include="Core\SceneGraph.cs" />
     <Compile Include="Core\TraversalAlgorithm.cs" />
+    <Compile Include="Components\Graphics2D\Canvas.cs" />
+    <Compile Include="Components\Graphics2D\Graphics.cs" />
+    <Compile Include="Components\Graphics2D\Polygon2DOld.cs" />
+    <Compile Include="Components\Graphics2D\Polygon\Polygon2D.cs" />
+    <Compile Include="Components\Graphics2D\Polygon\DrawablePolygon2D.cs" />
+    <Compile Include="Components\Graphics2D\Polygon\SolidLinePolygon2D.cs" />
+    <Compile Include="Components\CollisionDetector.cs" />
+    <Compile Include="Components\CollisionDetectorEventArgs.cs" />
+    <Compile Include="Components\Diagnostics\FrameCounter.cs" />
+    <Compile Include="Components\Diagnostics\MethodTimeTracker.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Components\Graphics2D\Polygon\" />
+    <Folder Include="Components\Diagnostics\" />
+    <Folder Include="Components\Graphics2D\SceneGraph\" />
+    <Folder Include="Components\Physics\" />
+    <Folder Include="Components\Physics\CollisionHandling\" />
+    <Folder Include="Components\Graphics2D\Canvas\" />
   </ItemGroup>
 </Project>

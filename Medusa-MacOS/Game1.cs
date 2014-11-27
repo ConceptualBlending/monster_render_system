@@ -1,7 +1,7 @@
-﻿using Medusa;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 
 using System;
+using ConceptualBlending.Tools.Medusa;
 
 namespace MedusaMacOS
 {

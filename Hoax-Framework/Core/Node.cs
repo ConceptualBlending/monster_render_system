@@ -20,7 +20,6 @@ namespace Hoax.Framework.Components.Graphics2D
 
 		public override void UnloadContent () 
 		{
-			Debug.WriteLine ("Unload Node content");
 			foreach (Node child in Children)
 				child.UnloadContent ();
 		}

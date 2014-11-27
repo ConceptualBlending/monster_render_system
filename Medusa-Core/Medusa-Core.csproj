@@ -31,6 +31,14 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Compile Include="Renderer.cs" />
+    <Compile Include="Components\Individual.cs" />
+    <Compile Include="Components\Shape.cs" />
+    <Compile Include="Components\TextureRepository.cs" />
+    <Compile Include="Components\ITextureProvider.cs" />
+    <Compile Include="Components\ConnectionPointRegister.cs" />
+    <Compile Include="Components\Statement.cs" />
+    <Compile Include="Components\Configuration.cs" />
+    <Compile Include="Components\MonsterRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Hoax-Framework\Hoax-Framework.csproj">
@@ -48,5 +56,11 @@
     <Reference Include="MonoGame.Framework">
       <HintPath>..\..\..\Library\Application Support\XamarinStudio-5.0\LocalInstall\Addins\MonoDevelop.MonoGame.3.2.0.2\templates\MonoGameApplication\assemblies\MacOS\MonoGame.Framework.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Components\" />
+    <Folder Include="Components\IO\" />
+    <Folder Include="Components\Rendering\" />
+    <Folder Include="Components\Registers\" />
   </ItemGroup>
 </Project>

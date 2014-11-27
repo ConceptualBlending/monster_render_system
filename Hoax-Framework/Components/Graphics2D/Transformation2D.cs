@@ -1,5 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using Hoax.Framework.Common.Utils;
+using HoaxFramework;
 
 namespace Hoax.Framework.Components.Graphics2D
 {
@@ -28,6 +30,28 @@ namespace Hoax.Framework.Components.Graphics2D
 
 		public Matrix WorldMatrix { get; internal set; }
 
+		public void UpdateWorldTransformation() 
+		{
+			MethodTimeTracker.Instance.Start (System.Reflection.MethodBase.GetCurrentMethod ().Name);
+
+			Vector3 pos, scale;
+
+			Quaternion rot;
+			if (!WorldMatrix.Decompose (out scale, out rot, out pos))
+				throw new Exception (WorldMatrix.ToString());
+
+			WorldPosition = WorldPosition.Project2D (pos);
+			WorldScale = WorldScale.Project2D (scale);
+
+			var direction = Vector2.Transform (Vector2.UnitX, rot);
+			WorldRotation = (float)Math.Atan2 (direction.Y, direction.X);
+			WorldRotation = float.IsNaN (WorldRotation) ? 0 :
+				MathHelper.ToDegrees (WorldRotation);
+
+			MethodTimeTracker.Instance.Stop (System.Reflection.MethodBase.GetCurrentMethod ().Name);
+		}
+
 	}
+
 }
 

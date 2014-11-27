@@ -347,19 +347,7 @@ namespace Hoax.Framework.Components.Graphics2D
 						Parent.Transformation2D.WorldMatrix);
 				}
 
-				Vector3 pos, scale;
-
-				Quaternion rot;
-				if (!Transformation2D.WorldMatrix.Decompose (out scale, out rot, out pos))
-					throw new Exception (Transformation2D.WorldMatrix.ToString());
-
-				Transformation2D.WorldPosition = Transformation2D.WorldPosition.Project2D (pos);
-				Transformation2D.WorldScale = Transformation2D.WorldScale.Project2D (scale);
-
-				var direction = Vector2.Transform (Vector2.UnitX, rot);
-				Transformation2D.WorldRotation = (float)Math.Atan2 (direction.Y, direction.X);
-				Transformation2D.WorldRotation = float.IsNaN (Transformation2D.WorldRotation) ? 0 :
-					MathHelper.ToDegrees (Transformation2D.WorldRotation);
+				Transformation2D.UpdateWorldTransformation();
 
 				#endregion
 				UpdateFlags ^= Entity.UPDATE_FLAG_TRANSFORMATION;

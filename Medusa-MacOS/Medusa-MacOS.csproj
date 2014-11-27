@@ -81,7 +81,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Assets\logo.png" />
+    <BundleResource Include="Assets\box1.png" />
+    <BundleResource Include="Assets\box2.png" />
+    <BundleResource Include="Assets\box3.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
