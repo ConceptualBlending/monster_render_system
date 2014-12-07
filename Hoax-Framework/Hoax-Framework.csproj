@@ -37,6 +37,7 @@
     <Reference Include="MonoGame.Framework">
       <HintPath>..\..\..\Library\Application Support\XamarinStudio-5.0\LocalInstall\Addins\MonoDevelop.MonoGame.3.2.0.2\templates\MonoGameApplication\assemblies\MacOS\MonoGame.Framework.dll</HintPath>
     </Reference>
+    <Reference Include="Mono.C5" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Utils\ColorUtils.cs" />
@@ -63,12 +64,14 @@
     <Compile Include="Components\Graphics2D\Graphics.cs" />
     <Compile Include="Components\Graphics2D\Polygon2DOld.cs" />
     <Compile Include="Components\Graphics2D\Polygon\Polygon2D.cs" />
-    <Compile Include="Components\Graphics2D\Polygon\DrawablePolygon2D.cs" />
     <Compile Include="Components\Graphics2D\Polygon\SolidLinePolygon2D.cs" />
     <Compile Include="Components\CollisionDetector.cs" />
     <Compile Include="Components\CollisionDetectorEventArgs.cs" />
     <Compile Include="Components\Diagnostics\FrameCounter.cs" />
     <Compile Include="Components\Diagnostics\MethodTimeTracker.cs" />
+    <Compile Include="Components\DrawableBoundingBox.cs" />
+    <Compile Include="Components\Graphics2D\ProjectFixedEffect.cs" />
+    <Compile Include="Core\EmptyNode.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Components\Graphics2D\Polygon\" />

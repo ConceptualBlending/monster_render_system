@@ -12,6 +12,7 @@ namespace Hoax.Framework.Components.Graphics2D
 			LocalScale = WorldScale = Vector2.One;
 			LocalPosition = WorldPosition = Vector2.Zero;
 			LocalRotation = WorldRotation = .0f;
+			WorldMatrix = new Matrix ();
 		}
 
 		public Vector2 LocalPosition { get; internal set; }

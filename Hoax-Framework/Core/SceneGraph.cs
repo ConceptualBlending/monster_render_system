@@ -20,7 +20,7 @@ namespace Hoax.Framework.Components.Graphics2D
 		public SceneGraph (Game game)
 		{
 			Game = game;
-			RootNode = new Node ("RootNode");
+			RootNode = new EmptyNode ("RootNode");
 
 		}
 

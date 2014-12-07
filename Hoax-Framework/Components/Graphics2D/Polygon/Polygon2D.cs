@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Hoax.Framework.Components.Graphics2D;
 using Hoax.Framework.Common.Utils;
 using HoaxFramework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Hoax.Components.Graphics
 {
@@ -10,31 +11,66 @@ namespace Hoax.Components.Graphics
 	{
 		public enum OrientationType {Clockwise, CounterClockwise, Unknown}
 
+
+		public Transformation2D LocalTransformation { get; protected set; }
+
 		public OrientationType Orientation;
-		public BoundingBox BoundingBox { get; private set; }
-		public Vector2[] Vertices { get; private set; }
+		public DrawableBoundingBox BoundingBox { get; private set; }
+		public Vector2[] LocalVertices { get; private set; }
+		public Vector2[] WorldVertices { get; private set; }
 		public bool IsConvex { get; private set; }
+
+		public void SetWorldMatrix (Matrix worldMatrix)
+		{
+			for (int i = 0; i < WorldVertices.Length; i++) {
+				WorldVertices [i] = Vector2.Transform (LocalVertices [i], worldMatrix);
+			}
+
+			BoundingBox.SetWorldMatrix (worldMatrix);
+		}
+
+		public void DrawBoundingBox (Canvas canvas, Color lineColor)
+		{
+			MethodTimeTracker.Instance.Start ("DrawablePolygon2D: " + System.Reflection.MethodBase.GetCurrentMethod ().Name);
+			VertexPositionColor[] vertices = new VertexPositionColor[5];
+			vertices [0] = new VertexPositionColor (new Vector3(BoundingBox.Min.X, BoundingBox.Max.Y,0), lineColor);
+			vertices [1] = new VertexPositionColor (new Vector3(BoundingBox.Max.X, BoundingBox.Max.Y,0), lineColor);
+			vertices [2] = new VertexPositionColor (new Vector3(BoundingBox.Max.X, BoundingBox.Min.Y,0), lineColor);
+			vertices [3] = new VertexPositionColor (new Vector3(BoundingBox.Min.X, BoundingBox.Min.Y,0), lineColor);
+			vertices [4] = new VertexPositionColor (new Vector3(BoundingBox.Min.X, BoundingBox.Max.Y,0), lineColor);
+			canvas.Game.GraphicsDevice.DrawUserPrimitives (PrimitiveType.LineStrip, vertices, 0, 4);
+			MethodTimeTracker.Instance.Stop ("DrawablePolygon2D: " + System.Reflection.MethodBase.GetCurrentMethod ().Name);
+		}
+
+		public virtual void Draw (SpriteBatch spriteBatch) 
+		{
+			MethodTimeTracker.Instance.Start ("DrawablePolygon2D: " + System.Reflection.MethodBase.GetCurrentMethod ().Name);
+			//LocalTransformation = canvas.Transformation2D;
+			MethodTimeTracker.Instance.Stop ("DrawablePolygon2D: " + System.Reflection.MethodBase.GetCurrentMethod ().Name);
+		}
 
 		public Polygon2D (Vector2[] points)
 		{
+			LocalTransformation = new Transformation2D ();
+
 			MethodTimeTracker.Instance.Start (System.Reflection.MethodBase.GetCurrentMethod ().Name);
 			InitializePolygonPoints (points);
-			UpdateBoundingBox (points);
 			MethodTimeTracker.Instance.Stop (System.Reflection.MethodBase.GetCurrentMethod ().Name);
 		}
 
 		public virtual void SetPosition(int index, Vector2 position) {
 			MethodTimeTracker.Instance.Start (System.Reflection.MethodBase.GetCurrentMethod ().Name);
-			Vertices [index] = position;
-			UpdateBoundingBox (Vertices);
+			LocalVertices [index] = position;
+			UpdateBoundingBox (LocalVertices);
 			MethodTimeTracker.Instance.Stop (System.Reflection.MethodBase.GetCurrentMethod ().Name);
 		}
 
 		public virtual void Translate (Vector2 translation)
 		{
 			MethodTimeTracker.Instance.Start (System.Reflection.MethodBase.GetCurrentMethod ().Name);
-			for (int i = 0; i < Vertices.Length; i++)
-				SetPosition (i, Vertices[i] + translation);
+			for (int i = 0; i < LocalVertices.Length; i++)
+				SetPosition (i, LocalVertices[i] + translation);
+			UpdateBoundingBox (LocalVertices);
 			MethodTimeTracker.Instance.Stop (System.Reflection.MethodBase.GetCurrentMethod ().Name);
 		}
 
@@ -45,14 +81,20 @@ namespace Hoax.Components.Graphics
 			if (points [0].X != points [points.Length - 1].X || points [0].Y != points [points.Length - 1].Y) {
 				countOfPoints++;
 			}
-			Vertices = new Vector2[countOfPoints];
-			Array.Copy (points, Vertices, points.Length);
+			LocalVertices = new Vector2[countOfPoints];
+			WorldVertices = new Vector2[countOfPoints];
+
+			Array.Copy (points, LocalVertices, points.Length);
 			if (points.Length != countOfPoints)
-				Array.Copy (points, 0, Vertices, countOfPoints - 1, 1);
+				Array.Copy (points, 0, LocalVertices, countOfPoints - 1, 1);
+				
 
 			UpdateConvexityState ();
+			UpdateBoundingBox (points);
+
 			MethodTimeTracker.Instance.Stop (System.Reflection.MethodBase.GetCurrentMethod ().Name);
 		}
+			
 
 		private void UpdateBoundingBox (Vector2[] points)
 		{
@@ -66,22 +108,29 @@ namespace Hoax.Components.Graphics
 				ymin = Math.Min (ymin, point.Y);
 				xmax = Math.Max (xmax, point.X);
 				ymax = Math.Max (ymax, point.Y);
+			
 			}
-			BoundingBox = new BoundingBox(new Vector3(xmin, ymin, 0), new Vector3(xmax, ymax, 0));
-			MethodTimeTracker.Instance.Stop (System.Reflection.MethodBase.GetCurrentMethod ().Name);
-		}
 
-		public bool Intersecs (Polygon2D other) 
-		{
-			return Intersecs (this, other);
+			BoundingBox = new DrawableBoundingBox (new Vector3(xmin, ymin, 0), new Vector3(xmax, ymax,0 ));
+
+			/*_boundingBoxMinBuffer.X = xmin;
+			_boundingBoxMinBuffer.Y = ymin;
+			_boundingBoxMaxBuffer.X = xmax;
+			_boundingBoxMaxBuffer.Y = ymax;
+			Vector3.Transform (_boundingBoxMinBuffer, LocalTransformation.WorldMatrix);
+			Vector3.Transform (_boundingBoxMaxBuffer, LocalTransformation.WorldMatrix);
+			BoundingBox.Min = _boundingBoxMinBuffer;
+			BoundingBox.Max = _boundingBoxMaxBuffer;
+*/
+			MethodTimeTracker.Instance.Stop (System.Reflection.MethodBase.GetCurrentMethod ().Name);
 		}
 
 		private void UpdateConvexityState()
 		{
 			MethodTimeTracker.Instance.Start (System.Reflection.MethodBase.GetCurrentMethod ().Name);
-			if (!IsConvexClockwise (Vertices)) {
-				Vector2[] verticesCpy = new Vector2[Vertices.Length];
-				Array.Copy (Vertices, verticesCpy, Vertices.Length);
+			if (!IsConvexClockwise (LocalVertices)) {
+				Vector2[] verticesCpy = new Vector2[LocalVertices.Length];
+				Array.Copy (LocalVertices, verticesCpy, LocalVertices.Length);
 				Array.Reverse (verticesCpy);
 				if (IsConvexClockwise (verticesCpy)) {
 					IsConvex = true;
@@ -106,12 +155,7 @@ namespace Hoax.Components.Graphics
 				bool convex = false;
 				int n = vertices.Length;
 				for (int i = 0; i < n; i++) {
-					/*
-					 * double dx1 = _vertices.get((i+2)%n).X-_vertices.get((i+1)%n).X;
-				        double dy1 = _vertices.get((i+2)%n).Y-_vertices.get((i+1)%n).Y;
-				        double dx2 = _vertices.get(i).X-_vertices.get((i+1)%n).X;
-				        double dy2 = _vertices.get(i).Y-_vertices.get((i+1)%n).Y;
-					 */
+
 					float dx1 = vertices [(i + 2) % n].X - vertices [(i + 1) % n].X;
 					float dy1 = vertices [(i + 2) % n].Y - vertices [(i + 1) % n].Y;
 					float dx2 = vertices [i].X - vertices [(i+1) % n].X;
@@ -128,6 +172,67 @@ namespace Hoax.Components.Graphics
 			}
 		}
 
+
+		public static bool Intersecs (Polygon2D a, Polygon2D b)
+		{
+			MethodTimeTracker.Instance.Start ("CollisionDetector: " + System.Reflection.MethodBase.GetCurrentMethod ().Name + " (intersec test)/Intersecs (apply world trans)/Intersecs");
+
+		
+
+			if (a.BoundingBox.Intersects(b.BoundingBox)) {
+
+				int vertexCountA = a.WorldVertices.Length;
+				int vertexCountB = b.WorldVertices.Length;
+
+				for (int i = 0; i < vertexCountA; i++) {
+					for (int k = 0; k < vertexCountB; k++) {
+						if (Vector2Utils.Intersects (a.WorldVertices [i], a.WorldVertices [(i + 1) % vertexCountA], 
+							b.WorldVertices [k], b.WorldVertices [(k + 1) % vertexCountB])) {
+							return true;
+						}
+					}
+				}
+
+			/*	MethodTimeTracker.Instance.Start ("CollisionDetector: " + System.Reflection.MethodBase.GetCurrentMethod ().Name + " (intersec test)/Intersecs (apply world trans)/Intersecs (in bounding box)");
+
+				// Check line intersection
+				int vertexCountA = polygonA.LocalVertices.Length;
+				int vertexCountB = polygonB.LocalVertices.Length;
+
+				MethodTimeTracker.Instance.Start ("CollisionDetector: " + System.Reflection.MethodBase.GetCurrentMethod ().Name + " (intersec test)/Intersecs (apply world trans)/Intersecs (in bounding box) (line intersec test)");
+
+				for (int i = 0; i < vertexCountA; i++) {
+					for (int k = 0; k < vertexCountB; k++) {
+						if (Vector2Utils.Intersects (polygonA.WorldVertices [i], polygonA.WorldVertices [(i + 1) % vertexCountA], 
+							polygonB.WorldVertices [k], polygonB.WorldVertices [(k + 1) % vertexCountB])) {
+
+							MethodTimeTracker.Instance.Stop ("CollisionDetector: " + System.Reflection.MethodBase.GetCurrentMethod ().Name + " (intersec test)/Intersecs (apply world trans)/Intersecs (in bounding box) (line intersec test)");
+							MethodTimeTracker.Instance.Stop ("CollisionDetector: " + System.Reflection.MethodBase.GetCurrentMethod ().Name + " (intersec test)/Intersecs (apply world trans)/Intersecs (in bounding box)");
+							MethodTimeTracker.Instance.Stop ("CollisionDetector: " + System.Reflection.MethodBase.GetCurrentMethod ().Name + " (intersec test)/Intersecs (apply world trans)/Intersecs");
+							return true;
+						}
+					}
+				}
+
+				MethodTimeTracker.Instance.Stop ("CollisionDetector: " + System.Reflection.MethodBase.GetCurrentMethod ().Name + " (intersec test)/Intersecs (apply world trans)/Intersecs (in bounding box) (line intersec test)");
+
+				// Check point containment
+				foreach (var vertex in polygonB.WorldVertices) {
+					if (polygonA.Contains (vertex)) {
+						MethodTimeTracker.Instance.Start (System.Reflection.MethodBase.GetCurrentMethod ().Name);
+
+						MethodTimeTracker.Instance.Stop ("CollisionDetector: " + System.Reflection.MethodBase.GetCurrentMethod ().Name + " (intersec test)/Intersecs (apply world trans)/Intersecs (in bounding box)");
+						MethodTimeTracker.Instance.Stop ("CollisionDetector: " + System.Reflection.MethodBase.GetCurrentMethod ().Name + " (intersec test)/Intersecs (apply world trans)/Intersecs");
+						return true;
+					}
+				}*/
+
+			}
+			MethodTimeTracker.Instance.Stop ("CollisionDetector: " + System.Reflection.MethodBase.GetCurrentMethod ().Name + " (intersec test)/Intersecs (apply world trans)/Intersecs");
+			return false;
+		}
+		/*
+
 		public bool Contains(Vector2 vertex) 
 		{
 			return Contains (this, vertex);
@@ -136,15 +241,15 @@ namespace Hoax.Components.Graphics
 		public static bool Contains(Polygon2D polygon, Vector2 vertex)
 		{
 			MethodTimeTracker.Instance.Start (System.Reflection.MethodBase.GetCurrentMethod ().Name);
-			int j = polygon.Vertices.Length - 1;
+			int j = polygon.WorldVertices.Length - 1;
 			bool oddNodes = false;
 			float x = vertex.X;
 			float y = vertex.Y;
 
-			for (int i = 0; i < polygon.Vertices.Length; i++) {
-				if (polygon.Vertices [i].Y < y && polygon.Vertices [j].Y >= y
-				    || polygon.Vertices [j].Y < y && polygon.Vertices [i].Y >= y) {
-					oddNodes ^= polygon.Vertices [i].X + (y - polygon.Vertices [i].Y) / (polygon.Vertices [j].Y - polygon.Vertices [i].Y) * (polygon.Vertices [j].X - polygon.Vertices [i].X) < x;
+			for (int i = 0; i < polygon.WorldVertices.Length; i++) {
+				if (polygon.WorldVertices [i].Y < y && polygon.WorldVertices [j].Y >= y
+					|| polygon.WorldVertices [j].Y < y && polygon.WorldVertices [i].Y >= y) {
+					oddNodes ^= polygon.WorldVertices [i].X + (y - polygon.WorldVertices [i].Y) / (polygon.WorldVertices [j].Y - polygon.WorldVertices [i].Y) * (polygon.WorldVertices [j].X - polygon.WorldVertices [i].X) < x;
 				}
 				j = i;
 			}
@@ -161,15 +266,15 @@ namespace Hoax.Components.Graphics
 				MethodTimeTracker.Instance.Start ("CollisionDetector: " + System.Reflection.MethodBase.GetCurrentMethod ().Name + " (intersec test)/Intersecs (apply world trans)/Intersecs (in bounding box)");
 
 				// Check line intersection
-				int vertexCountA = polygonA.Vertices.Length;
-				int vertexCountB = polygonB.Vertices.Length;
+				int vertexCountA = polygonA.LocalVertices.Length;
+				int vertexCountB = polygonB.LocalVertices.Length;
 
 				MethodTimeTracker.Instance.Start ("CollisionDetector: " + System.Reflection.MethodBase.GetCurrentMethod ().Name + " (intersec test)/Intersecs (apply world trans)/Intersecs (in bounding box) (line intersec test)");
 
 				for (int i = 0; i < vertexCountA; i++) {
 					for (int k = 0; k < vertexCountB; k++) {
-						if (Vector2Utils.Intersects (polygonA.Vertices [i], polygonA.Vertices [(i + 1) % vertexCountA], 
-							    polygonB.Vertices [k], polygonB.Vertices [(k + 1) % vertexCountB])) {
+						if (Vector2Utils.Intersects (polygonA.WorldVertices [i], polygonA.WorldVertices [(i + 1) % vertexCountA], 
+							polygonB.WorldVertices [k], polygonB.WorldVertices [(k + 1) % vertexCountB])) {
 
 							MethodTimeTracker.Instance.Stop ("CollisionDetector: " + System.Reflection.MethodBase.GetCurrentMethod ().Name + " (intersec test)/Intersecs (apply world trans)/Intersecs (in bounding box) (line intersec test)");
 							MethodTimeTracker.Instance.Stop ("CollisionDetector: " + System.Reflection.MethodBase.GetCurrentMethod ().Name + " (intersec test)/Intersecs (apply world trans)/Intersecs (in bounding box)");
@@ -182,7 +287,7 @@ namespace Hoax.Components.Graphics
 				MethodTimeTracker.Instance.Stop ("CollisionDetector: " + System.Reflection.MethodBase.GetCurrentMethod ().Name + " (intersec test)/Intersecs (apply world trans)/Intersecs (in bounding box) (line intersec test)");
 
 				// Check point containment
-				foreach (var vertex in polygonB.Vertices) {
+				foreach (var vertex in polygonB.WorldVertices) {
 					if (polygonA.Contains (vertex)) {
 						MethodTimeTracker.Instance.Start (System.Reflection.MethodBase.GetCurrentMethod ().Name);
 
@@ -197,33 +302,24 @@ namespace Hoax.Components.Graphics
 			return false;
 		}
 
-		public static bool Intersecs (Polygon2D self, Transformation2D selfTransformation, Polygon2D other, Transformation2D otherTransformation) 
+		/*public static bool Intersecs (Polygon2D self, Transformation2D selfTransformation, Polygon2D other, Transformation2D otherTransformation) 
 		{
 			MethodTimeTracker.Instance.Start ("CollisionDetector: " + System.Reflection.MethodBase.GetCurrentMethod ().Name + " (intersec test)/Intersecs");
 
 			MethodTimeTracker.Instance.Start ("CollisionDetector: " + System.Reflection.MethodBase.GetCurrentMethod ().Name + " (intersec test)/Intersecs (apply world trans)");
 
-			Polygon2D selfTanslated = ApplyWorldTransformation (self, selfTransformation);
-			Polygon2D otherTanslated = ApplyWorldTransformation (other, otherTransformation);
+			//Polygon2D selfTanslated = ApplyWorldTransformation (self, selfTransformation);
+			//Polygon2D otherTanslated = ApplyWorldTransformation (other, otherTransformation);
+			self.UpdateWorldTransformation (selfTransformation);
+			other.UpdateWorldTransformation (otherTransformation);
 
 			MethodTimeTracker.Instance.Stop ("CollisionDetector: " + System.Reflection.MethodBase.GetCurrentMethod ().Name + " (intersec test)/Intersecs (apply world trans)");
 
-			bool result = Intersecs (selfTanslated, otherTanslated);
+			bool result = Intersecs (self, other);
 
 			MethodTimeTracker.Instance.Stop ("CollisionDetector: " + System.Reflection.MethodBase.GetCurrentMethod ().Name + " (intersec test)/Intersecs");
 			return result;
-		}
-					
-		public static Polygon2D ApplyWorldTransformation (Polygon2D polygon, Transformation2D transformation)
-		{
-			MethodTimeTracker.Instance.Start (System.Reflection.MethodBase.GetCurrentMethod ().Name);
-			Vector2[] translatedPoints = new Vector2[polygon.Vertices.Length];
-			for (int i = 0; i < translatedPoints.Length; i++) {
-				translatedPoints [i] = Vector2.Transform (polygon.Vertices [i], transformation.WorldMatrix);
-			}
-			MethodTimeTracker.Instance.Stop (System.Reflection.MethodBase.GetCurrentMethod ().Name);
-			return new Polygon2D (translatedPoints);		//TODO: Garbage Collector!
-		}
+		}*/
 	}
 }
 

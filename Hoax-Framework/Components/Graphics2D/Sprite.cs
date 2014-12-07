@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System.Diagnostics;
 using System.Threading;
+using Microsoft.Xna.Framework;
 
 namespace Hoax.Framework.Components.Graphics2D
 {
@@ -14,6 +15,15 @@ namespace Hoax.Framework.Components.Graphics2D
 		{
 			AssetName = assetName;
 		}
+
+		#region implemented abstract members of Entity
+
+		protected override void OnTransformationChanged (Matrix transformation2D)
+		{
+
+		}
+
+		#endregion
 
 		public override void LoadContent ()
 		{

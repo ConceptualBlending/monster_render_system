@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace Hoax.Framework.Components.Graphics2D
 {
-	public class Node : Entity
+	public abstract class Node : Entity
 	{
 		public Node (string identifier) : base (identifier)
 		{

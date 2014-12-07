@@ -14,6 +14,8 @@ namespace ConceptualBlending.Tools.Medusa
 public abstract class Renderer : Game
 {
 
+		public MonsterRenderer MonsterRenderer { get; private set; }
+
 		#region Fields
 
 		GraphicsDeviceManager graphics;
@@ -91,6 +93,12 @@ public abstract class Renderer : Game
 			//
 			//--------------------------------------------------------------------------------------------------------
 
+
+
+		}
+
+		protected override void LoadContent ()
+		{
 			Configuration.SetFlag (Configuration.FLAG_VERBOSE);
 
 			TextureRepository textureRepository = new TextureRepository ();
@@ -121,11 +129,21 @@ public abstract class Renderer : Game
 			Individual l1 = new Individual("l1", new Shape ("HorseLeg", textureRepository, connectionPointRegister));
 			Individual l2 = new Individual("l2", new Shape ("HorseLeg", textureRepository, connectionPointRegister));
 
+			spriteBatch = new SpriteBatch(GraphicsDevice);
 
-			MonsterRenderer monsterRenderer = new MonsterRenderer (connectionPointRegister);
-			monsterRenderer.ReadStatement (new Statement (h, "ToBody", t, "Head"));
-			monsterRenderer.ReadStatement (new Statement (l1, "ToBody", t, "Leg1"));
-			monsterRenderer.ReadStatement (new Statement (l2, "ToBody", t, "Leg2"));
+			MonsterRenderer = new MonsterRenderer (this, spriteBatch, connectionPointRegister);
+
+			// Working case:
+			//MonsterRenderer.ReadStatement (new Statement (h, "ToBody", t, "Head"));
+			//MonsterRenderer.ReadStatement (new Statement (l1, "ToBody", t, "Leg1"));
+			//MonsterRenderer.ReadStatement (new Statement ( l2, "ToBody", t, "Leg2" ));
+
+			// Case which leads to non-sense
+			MonsterRenderer.ReadStatement (new Statement (t, "Head", h, "ToBody"));
+			MonsterRenderer.ReadStatement (new Statement (t, "Leg1", l1, "ToBody"));
+			MonsterRenderer.ReadStatement (new Statement ( t, "Leg2" , l2, "ToBody"));
+
+			// Solution for next iteration: At each step union source and target (texture and points)
 
 			/*
 			 * MonsterRenderer runs in verbose mode. It prints the following to the standard output
@@ -141,16 +159,8 @@ public abstract class Renderer : Game
 			 * (different hash codes means different objects in this context, although the content (the image)
 			 *  is the same). The point (x,y) is the defined connection point.
 			 */ 
-
 		}
-
-		protected override void LoadContent ()
-		{
-			spriteBatch = new SpriteBatch(GraphicsDevice);
-		}
-
-		float degree = 0.0f;
-
+			
 		#endregion
 
 		#region Update and Draw
@@ -159,12 +169,18 @@ public abstract class Renderer : Game
 		protected override void Update (GameTime gameTime)
 		{
 			base.Update (gameTime);
-
+			MonsterRenderer.Update (gameTime);
 		}
 
 		protected override void Draw (GameTime gameTime)
 		{
 			GraphicsDevice.Clear(Color.CornflowerBlue);
+
+			spriteBatch.Begin ();
+
+			MonsterRenderer.Draw (gameTime);
+
+			spriteBatch.End ();
 
 			base.Draw(gameTime);
 		}

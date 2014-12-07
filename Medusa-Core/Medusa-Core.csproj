@@ -39,6 +39,7 @@
     <Compile Include="Components\Statement.cs" />
     <Compile Include="Components\Configuration.cs" />
     <Compile Include="Components\MonsterRenderer.cs" />
+    <Compile Include="Components\Rendering\DrawableShape.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Hoax-Framework\Hoax-Framework.csproj">

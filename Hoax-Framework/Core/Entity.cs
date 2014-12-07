@@ -327,7 +327,7 @@ namespace Hoax.Framework.Components.Graphics2D
 			return Identifier.Equals (obj);
 		}
 
-		public void Update (GameTime gameTime)
+		public virtual void Update (GameTime gameTime)
 		{
 			if ((UpdateFlags & Entity.UPDATE_FLAG_TRANSFORMATION) == Entity.UPDATE_FLAG_TRANSFORMATION) {
 				#region Update Entity local and world translation
@@ -347,7 +347,10 @@ namespace Hoax.Framework.Components.Graphics2D
 						Parent.Transformation2D.WorldMatrix);
 				}
 
+				OnTransformationChanged(Transformation2D.WorldMatrix);
+
 				Transformation2D.UpdateWorldTransformation();
+
 
 				#endregion
 				UpdateFlags ^= Entity.UPDATE_FLAG_TRANSFORMATION;
@@ -355,6 +358,8 @@ namespace Hoax.Framework.Components.Graphics2D
 			}
 			ForEachChild (child => child.Update (gameTime));
 		}
+
+		protected abstract void OnTransformationChanged (Matrix worldMatrix);
 
 		public void DetachChild (Entity child, Game game)
 		{

@@ -4,14 +4,13 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectTypeGuids>{948B3504-5B70-4649-8FE4-BDE1FB46EC69};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <ProjectGuid>{D8500454-CE92-4430-841D-C15E809C6A35}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>MedusaMacOS</RootNamespace>
-    <MonoMacResourcePrefix>Resources</MonoMacResourcePrefix>
-    <AssemblyName>Medusa-MacOS</AssemblyName>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <SuppressXamMacUpsell>True</SuppressXamMacUpsell>
+    <ProjectGuid>{D8721508-5C66-4D07-A684-CCBA9AD87DD0}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>SceneGraph</RootNamespace>
+    <MonoMacResourcePrefix>Resources</MonoMacResourcePrefix>
+    <AssemblyName>SceneGraph</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -35,11 +34,13 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
+    <LinkMode>SdkOnly</LinkMode>
     <UseSGen>false</UseSGen>
-    <IncludeMonoRuntime>false</IncludeMonoRuntime>
+    <IncludeMonoRuntime>true</IncludeMonoRuntime>
     <EnablePackageSigning>false</EnablePackageSigning>
-    <EnableCodeSigning>false</EnableCodeSigning>
-    <CreatePackage>false</CreatePackage>
+    <CodeSigningKey>Developer ID Application</CodeSigningKey>
+    <EnableCodeSigning>true</EnableCodeSigning>
+    <CreatePackage>true</CreatePackage>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AppStore|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -63,11 +64,14 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
-    <Reference Include="MonoMac">
-      <HintPath>..\HoaxDemo\packages\MonoMac.dll</HintPath>
+    <Reference Include="Lidgren.Network">
+      <HintPath>..\..\..\..\Library\Application Support\XamarinStudio-5.0\LocalInstall\Addins\MonoDevelop.MonoGame.3.2.0.2\templates\MonoGameApplication\assemblies\MacOS\Lidgren.Network.dll</HintPath>
     </Reference>
     <Reference Include="MonoGame.Framework">
-      <HintPath>..\..\..\Library\Application Support\XamarinStudio-5.0\LocalInstall\Addins\MonoDevelop.MonoGame.3.2.0.2\templates\MonoGameApplication\assemblies\MacOS\MonoGame.Framework.dll</HintPath>
+      <HintPath>..\..\..\..\Library\Application Support\XamarinStudio-5.0\LocalInstall\Addins\MonoDevelop.MonoGame.3.2.0.2\templates\MonoGameApplication\assemblies\MacOS\MonoGame.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="MonoMac">
+      <HintPath>..\HoaxDemo\packages\MonoMac.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -82,16 +86,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Assets\box1.png" />
-    <BundleResource Include="Assets\box2.png" />
-    <BundleResource Include="Assets\box3.png" />
-    <BundleResource Include="Assets\connectionpoint.png" />
+    <BundleResource Include="Assets\logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\Medusa-Core\Medusa-Core.csproj">
-      <Project>{46EF16D1-2E64-4720-933F-2105F3A7159C}</Project>
-      <Name>Medusa-Core</Name>
+    <ProjectReference Include="..\..\Hoax-Framework\Hoax-Framework.csproj">
+      <Project>{A1110616-0B67-4E2D-9F35-E7A788C1CC6B}</Project>
+      <Name>Hoax-Framework</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>
