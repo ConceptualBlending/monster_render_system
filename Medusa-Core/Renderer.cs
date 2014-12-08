@@ -1,11 +1,9 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Hoax.Framework.Components.Graphics2D;
-using HoaxFramework;
+using Hoax.Engine.Graphics2D;
+using Hoax.Engine.Graphics2D;
 using Microsoft.Xna.Framework.Input;
-using Hoax.Components.Graphics;
-using Hoax.Components.Diagnostics;
 using ConceptualBlending.Tools.Medusa.Components;
 using System.Collections.Generic;
 

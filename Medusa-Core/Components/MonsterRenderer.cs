@@ -1,9 +1,10 @@
 ﻿using System;
-using Hoax.Framework.Components.Graphics2D;
+using Hoax.Engine.Graphics2D;
 using Microsoft.Xna.Framework;
-using Hoax.Framework.Components.Services;
+using Hoax.Engine.Services;
 using Microsoft.Xna.Framework.Graphics;
 using System.Linq;
+using Hoax.Engine.Graphics2D;
 
 namespace ConceptualBlending.Tools.Medusa.Components
 {

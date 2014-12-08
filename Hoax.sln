@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Medusa-Linux", "Medusa-Linu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SceneGraph", "Examples\SceneGraph\SceneGraph.csproj", "{D8721508-5C66-4D07-A684-CCBA9AD87DD0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GamePadAndKeyboard", "GamePadAndKeyboard\GamePadAndKeyboard.csproj", "{6E91D8FC-987F-45EF-BC8A-999CE91B1554}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +32,12 @@ Global
 		{57F95A23-6DA3-44E8-BFB9-4FF4F2019FF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57F95A23-6DA3-44E8-BFB9-4FF4F2019FF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57F95A23-6DA3-44E8-BFB9-4FF4F2019FF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E91D8FC-987F-45EF-BC8A-999CE91B1554}.AppStore|Any CPU.ActiveCfg = AppStore|Any CPU
+		{6E91D8FC-987F-45EF-BC8A-999CE91B1554}.AppStore|Any CPU.Build.0 = AppStore|Any CPU
+		{6E91D8FC-987F-45EF-BC8A-999CE91B1554}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E91D8FC-987F-45EF-BC8A-999CE91B1554}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E91D8FC-987F-45EF-BC8A-999CE91B1554}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E91D8FC-987F-45EF-BC8A-999CE91B1554}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A1110616-0B67-4E2D-9F35-E7A788C1CC6B}.AppStore|Any CPU.ActiveCfg = Release|Any CPU
 		{A1110616-0B67-4E2D-9F35-E7A788C1CC6B}.AppStore|Any CPU.Build.0 = Release|Any CPU
 		{A1110616-0B67-4E2D-9F35-E7A788C1CC6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -50,6 +58,6 @@ Global
 		{D8721508-5C66-4D07-A684-CCBA9AD87DD0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = Medusa-MacOS\Medusa-MacOS.csproj
+		StartupItem = GamePadAndKeyboard\GamePadAndKeyboard.csproj
 	EndGlobalSection
 EndGlobal

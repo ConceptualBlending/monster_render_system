@@ -5,11 +5,10 @@
 // Microsoft XNA Community Game Platform
 // Copyright (C) Microsoft Corporation. All rights reserved.
 //-----------------------------------------------------------------------------
-using Hoax.Components.Diagnostics;
-using HoaxFramework;
-using Hoax.Components.Graphics;
-using Hoax.Framework.Components.Graphics2D;
-
+using Hoax.Engine.Common;
+using Hoax.Engine.Graphics2D;
+using Hoax.Engine.Diagnostics;
+using Hoax.Engine.Physics2D;
 
 #endregion
 
@@ -27,26 +26,16 @@ using Microsoft.Xna.Framework.Media;
 
 #endregion
 
-namespace Hoax.Examples.SceneGraph
+namespace Hoax.Examples.Scenes
 {
 	public class Game1 : Game
 	{
 		int max_sprites = 10;
 		int max_canvases = 150;
-		private FrameCounter frameCounter = new FrameCounter();
-
-/*		Canvas canvas;
-		Canvas customCanvas;
-		Canvas LocalIntersectionCanvas;
-		Canvas WorldIntersectionCanvas;
-		Canvas[] WorldIntersectionCanvases = new Canvas[3];*/
 		SpriteBatch spriteBatch;	
 
-		Hoax.Framework.Components.Graphics2D.SceneGraph sceneGraph;	
-		Hoax.Framework.Components.Graphics2D.Sprite sprite1, sprite2, sprite3, sprite4;
-
-		float degree = 0.0f;
-
+		SceneGraph sceneGraph;	
+		Sprite sprite1, sprite2, sprite3, sprite4;
 		GraphicsDeviceManager graphics;
 
 		public Game1()
@@ -66,7 +55,7 @@ namespace Hoax.Examples.SceneGraph
 		{
 			graphics.IsFullScreen = false;
 
-			sceneGraph = new Hoax.Framework.Components.Graphics2D.SceneGraph (this);
+			sceneGraph = new SceneGraph (this);
 			sprite1 = new Sprite ("S1", "logo.png");
 			sprite2 = new Sprite ("S2", "logo.png");
 			sprite3 = new Sprite ("S3", "logo.png");
@@ -101,17 +90,6 @@ namespace Hoax.Examples.SceneGraph
 		protected override void Initialize()
 		{
 			spriteBatch = new SpriteBatch (GraphicsDevice);
-
-			/*for (int i = 0; i < WorldIntersectionCanvases.Length; i++) {
-				Random r = new Random ();
-				WorldIntersectionCanvases [i] = new WorldIntersectionCanvas (GraphicsDevice);
-				sceneGraph.RootNode.AttachChild (WorldIntersectionCanvases [i]);
-				WorldIntersectionCanvases [i].Move (new Vector2 (-100 + i * 120, 0));
-			}*/
-
-			//sceneGraph.RootNode.AttachChild (LocalIntersectionCanvas);
-			//sceneGraph.RootNode.AttachChild (WorldIntersectionCanvas);
-
 			base.Initialize();
 		}
 
@@ -133,18 +111,9 @@ namespace Hoax.Examples.SceneGraph
 		{
 			MethodTimeTracker.Instance.Start ("Renderer: " + System.Reflection.MethodBase.GetCurrentMethod ().Name);
 
-			//sprite1.Rotate (degree += 0.02f);
-
-
 			float mx = (float) Math.Sin (gameTime.TotalGameTime.TotalMilliseconds / 400) * 100;
 			sprite1.Move (new Vector2(200 + mx,300));
 			sceneGraph.RootNode ["CD"].Move (new Vector2 (sceneGraph.RootNode ["CD"].Transformation2D.LocalPosition.X + 0.06f, sceneGraph.RootNode ["CD"].Transformation2D.LocalPosition.Y + 0.06f));
-			//sprite4.Move (new Vector2(200,300 - mx));
-			//WorldIntersectionCanvas.Move (new Vector2(200 + up + mx,300 + up));
-
-			//foreach (var c in WorldIntersectionCanvases) {
-			//	c.Move (new Vector2 (c.Transformation2D.LocalPosition.X - 0.2f, c.Transformation2D.LocalPosition.Y  - 0.2f));
-			//}
 
 			up -= 1.00f;
 
@@ -156,14 +125,10 @@ namespace Hoax.Examples.SceneGraph
 			sceneGraph.RootNode.Scale (new Vector2(sx,sy));
 			MethodTimeTracker.Instance.Stop ("Renderer: Update Scene Graph");
 
-					// TODO: Speed!
 			CollisionDetector.Instance.Update ();
 
 			sx -= 0.0001f;
 			sy -= 0.0001f;
-
-			//System.Console.Clear ();
-			//System.Console.Out.WriteLine (MethodTimeTracker.Instance.ToString ());
 
 			base.Update(gameTime);
 			MethodTimeTracker.Instance.Stop ("Renderer: " + System.Reflection.MethodBase.GetCurrentMethod ().Name);
@@ -178,10 +143,6 @@ namespace Hoax.Examples.SceneGraph
 			GraphicsDevice.Clear(Color.DarkOliveGreen);
 
 			spriteBatch.Begin ();
-
-			//spriteBatch.Draw (canvas, 10, 10, Color.Orange);
-			//spriteBatch.Draw (canvas, 100, 200, Color.Orange);
-
 
 			MethodTimeTracker.Instance.Start ("Render Tree");
 			Entity.Traverse<BreadthFirst> (sceneGraph.RootNode, node => { 
@@ -199,18 +160,7 @@ namespace Hoax.Examples.SceneGraph
 			MethodTimeTracker.Instance.Start ("Render Tree");
 
 
-			//spriteBatch.Draw (customCanvas, 200, 300, Color.Yellow);
-			//spriteBatch.Draw (LocalIntersectionCanvas, 400, 0, Color.Orange);
-
-
 			spriteBatch.End();
-
-			//var deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-			//frameCounter.Update(deltaTime);
-			//var fps = string.Format("FPS: {0}", frameCounter.AverageFramesPerSecond);
-			//System.Console.Out.WriteLine (fps);
-
-
 
 			base.Draw(gameTime);
 
@@ -254,8 +204,6 @@ namespace Hoax.Examples.SceneGraph
 		public override void Update(GameTime gameTime) 
 		{
 			base.Update (gameTime);
-			//poly.SetWorldMatrix (this.Transformation2D.WorldMatrix);
-			//poly.LocalTransformation.UpdateWorldTransformation ();
 		}
 
 		public override void OnPaint (SpriteBatch spriteBatch)

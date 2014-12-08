@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework.Graphics;
-using Hoax.Framework.Components.Graphics2D;
+using Hoax.Engine.Graphics2D;
 using Microsoft.Xna.Framework;
 
 namespace MedusaCore

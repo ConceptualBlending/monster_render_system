@@ -6,7 +6,7 @@ using System.Linq;
 using MonoMac.AppKit;
 using MonoMac.Foundation;
 
-namespace Hoax.Examples.Scenes
+namespace GamePadAndKeyboard
 {
 	static class Program
 	{
