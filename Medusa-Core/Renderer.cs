@@ -125,6 +125,7 @@ public abstract class Renderer : Game
 			Individual h = new Individual("h", new Shape ("HorseHead", textureRepository, connectionPointRegister));
 			Individual t = new Individual("t", new Shape ("HorseTorso", textureRepository, connectionPointRegister));
 			Individual l1 = new Individual("l1", new Shape ("HorseLeg", textureRepository, connectionPointRegister));
+			Individual ot = new Individual("ot", new Shape ("HorseTorso", textureRepository, connectionPointRegister));
 			Individual l2 = new Individual("l2", new Shape ("HorseLeg", textureRepository, connectionPointRegister));
 
 			spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -132,14 +133,15 @@ public abstract class Renderer : Game
 			MonsterRenderer = new MonsterRenderer (this, spriteBatch, connectionPointRegister);
 
 			// Working case:
-			//MonsterRenderer.ReadStatement (new Statement (h, "ToBody", t, "Head"));
-			//MonsterRenderer.ReadStatement (new Statement (l1, "ToBody", t, "Leg1"));
-			//MonsterRenderer.ReadStatement (new Statement ( l2, "ToBody", t, "Leg2" ));
+			MonsterRenderer.ReadStatement (new Statement (h, "ToBody", t, "Head"));
+			MonsterRenderer.ReadStatement (new Statement (l1, "ToBody", t, "Leg1"));
+			MonsterRenderer.ReadStatement (new Statement (ot, "Head", t, "Leg2"));
+			MonsterRenderer.ReadStatement (new Statement (l2, "ToBody", ot, "Leg1" ));
 
 			// Case which leads to non-sense
-			MonsterRenderer.ReadStatement (new Statement (t, "Head", h, "ToBody"));
-			MonsterRenderer.ReadStatement (new Statement (t, "Leg1", l1, "ToBody"));
-			MonsterRenderer.ReadStatement (new Statement ( t, "Leg2" , l2, "ToBody"));
+//			MonsterRenderer.ReadStatement (new Statement (t, "Head", h, "ToBody"));
+//			MonsterRenderer.ReadStatement (new Statement (t, "Leg1", l1, "ToBody"));
+//			MonsterRenderer.ReadStatement (new Statement ( t, "Leg2" , l2, "ToBody"));
 
 			// Solution for next iteration: At each step union source and target (texture and points)
 

@@ -83,6 +83,8 @@
     <Compile Include="KeyboardGamePadDPad.cs" />
     <Compile Include="KeyboardThumbSticks.cs" />
     <Compile Include="KeyboardGamePadTriggers.cs" />
+    <Compile Include="Greedy.cs" />
+    <Compile Include="ElementUsagePolicy.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Components\" />
