@@ -1,0 +1,622 @@
+{
+  "MedusaFormatToken": "REP_TYPE_FORMAT_1",
+  "RepositoryContent": [
+    {
+      "Type": "devilsarmleft",
+      "ImageFile": "Assets/arms/devilsarmleft.png",
+      "Points": {
+        "ToBody": {
+          "x": 340,
+          "y": 100
+        },
+        "ToHand": {
+          "x": 100,
+          "y": 410
+        }
+      }
+    },
+    {
+      "Type": "devilsarmright",
+      "ImageFile": "Assets/arms/devilsarmright.png",
+      "Points": {
+        "ToBody": {
+          "x": 13,
+          "y": 112
+        },
+        "ToHand": {
+          "x": 250,
+          "y": 420
+        }
+      }
+    },
+    {
+      "Type": "humanarmleft",
+      "ImageFile": "Assets/arms/humanarmleft.png",
+      "Points": {
+        "ToBody": {
+          "x": 23,
+          "y": 12
+        },
+        "ToHand": {
+          "x": 12,
+          "y": 42
+        }
+      }
+    },
+    {
+      "Type": "humanarmright",
+      "ImageFile": "Assets/arms/humanarmright.png",
+      "Points": {
+        "ToBody": {
+          "x": 9,
+          "y": 12
+        },
+        "ToHand": {
+          "x": 21,
+          "y": 42
+        }
+      }
+    },
+    {
+      "Type": "cowearleft",
+      "ImageFile": "Assets/ears/cowearleft.png",
+      "Points": {
+        "ToHead": {
+          "x": 130,
+          "y": 65
+        }
+      }
+    },
+    {
+      "Type": "cowearright",
+      "ImageFile": "Assets/ears/cowearright.png",
+      "Points": {
+        "ToHead": {
+          "x": 15,
+          "y": 60
+        }
+      }
+    },
+    {
+      "Type": "hooveleft",
+      "ImageFile": "Assets/extras/hooveleft.png",
+      "Points": {
+        "ToLeg": {
+          "x": 56,
+          "y": 27
+        }
+      }
+    },
+    {
+      "Type": "hoovright",
+      "ImageFile": "Assets/extras/hoovright.png",
+      "Points": {
+        "ToLeg": {
+          "x": 47,
+          "y": 27
+        }
+      }
+    },
+    {
+      "Type": "devilseyes",
+      "ImageFile": "Assets/eyes/devilseyes.png",
+      "Points": {
+        "ToFace": {
+          "x": 37,
+          "y": 27
+        }
+      }
+    },
+    {
+      "Type": "humaneyes",
+      "ImageFile": "Assets/eyes/humaneyes.png",
+      "Points": {
+        "ToFace": {
+          "x": 70,
+          "y": 32
+        }
+      }
+    },
+    {
+      "Type": "insecteyes",
+      "ImageFile": "Assets/eyes/insecteyes.png",
+      "Points": {
+        "ToFace": {
+          "x": 70,
+          "y": 32
+        }
+      }
+    },
+    {
+      "Type": "devilshandleft",
+      "ImageFile": "Assets/hands/devilshandleft.png",
+      "Points": {
+        "ToArm": {
+          "x": 54,
+          "y": 10
+        }
+      }
+    },
+    {
+      "Type": "devilshandright",
+      "ImageFile": "Assets/hands/devilshandright.png",
+      "Points": {
+        "ToArm": {
+          "x": 73,
+          "y": 16
+        }
+      }
+    },
+    {
+      "Type": "humanhandsleft",
+      "ImageFile": "Assets/hands/humanhandsleft.png",
+      "Points": {
+        "ToArm": {
+          "x": 20,
+          "y": 15
+        }
+      }
+    },
+    {
+      "Type": "humanhandsright",
+      "ImageFile": "Assets/hands/humanhandsright.png",
+      "Points": {
+        "ToArm": {
+          "x": 30,
+          "y": 20
+        }
+      }
+    },
+    {
+      "Type": "hat1",
+      "ImageFile": "Assets/hat/hat1.png",
+      "Points": {
+        "ToHead": {
+          "x": 134,
+          "y": 95
+        }
+      }
+    },
+    {
+      "Type": "hat2",
+      "ImageFile": "Assets/hat/hat2.png",
+      "Points": {
+        "ToHead": {
+          "x": 130,
+          "y": 106
+        }
+      }
+    },
+    {
+      "Type": "cowhead",
+      "ImageFile": "Assets/heads/cowhead.png",
+      "Points": {
+        "ToMouth": {
+          "x": 170,
+          "y": 345
+        },
+        "ToTorso": {
+          "x": 180,
+          "y": 450
+        },
+        "ToEarLeft": {
+          "x": 17,
+          "y": 225
+        },
+        "ToEarRight": {
+          "x": 355,
+          "y": 209
+        },
+        "ToHat": {
+          "x": 180,
+          "y": 65
+        }
+      }
+    },
+    {
+      "Type": "devilshead",
+      "ImageFile": "Assets/heads/devilshead.png",
+      "Points": {
+        "ToBody": {
+          "x": 100,
+          "y": 180
+        },
+        "ToHat": {
+          "x": 102,
+          "y": 25
+        },
+        "ToEyes": {
+          "x": 100,
+          "y": 60
+        },
+        "ToNose": {
+          "x": 100,
+          "y": 90
+        },
+        "ToMouth": {
+          "x": 105,
+          "y": 130
+        }
+      }
+    },
+    {
+      "Type": "humanhead",
+      "ImageFile": "Assets/heads/humanhead.png",
+      "Points": {
+        "ToBody": {
+          "x": 130,
+          "y": 197
+        },
+        "ToHat": {
+          "x": 137,
+          "y": 42
+        },
+        "ToEyes": {
+          "x": 140,
+          "y": 100
+        },
+        "ToEarLeft": {
+          "x": 60,
+          "y": 100
+        },
+        "ToEarRight": {
+          "x": 215,
+          "y": 100
+        },
+        "ToMouth": {
+          "x": 130,
+          "y": 160
+        },
+        "ToNose": {
+          "x": 135,
+          "y": 135
+        }
+      }
+    },
+    {
+      "Type": "snakehead",
+      "ImageFile": "Assets/heads/snakehead.png",
+      "Points": {
+        "ToBody": {
+          "x": 125,
+          "y": 28
+        }
+      }
+    },
+    {
+      "Type": "devilhornleft",
+      "ImageFile": "Assets/horns/devilhornleft.png",
+      "Points": {
+        "ToHead": {
+          "x": 37,
+          "y": 70
+        }
+      }
+    },
+    {
+      "Type": "devilhornright",
+      "ImageFile": "Assets/horns/devilhornright.png",
+      "Points": {
+        "ToHead": {
+          "x": 26,
+          "y": 70
+        }
+      }
+    },
+    {
+      "Type": "cowdug",
+      "ImageFile": "Assets/misc/cowdug.png",
+      "Points": {
+        "ToBody": {
+          "x": 200,
+          "y": 65
+        }
+      }
+    },
+    {
+      "Type": "cowmouth",
+      "ImageFile": "Assets/mouth/cowmouth.png",
+      "Points": {
+        "ToFace": {
+          "x": 236,
+          "y": 171
+        }
+      }
+    },
+    {
+      "Type": "humanmouth",
+      "ImageFile": "Assets/mouth/humanmouth.png",
+      "Points": {
+        "ToFace": {
+          "x": 28,
+          "y": 15
+        }
+      }
+    },
+    {
+      "Type": "cowtail",
+      "ImageFile": "Assets/tails/cowtail.png",
+      "Points": {
+        "ToBody": {
+          "x": 61,
+          "y": 150
+        }
+      }
+    },
+    {
+      "Type": "snaketrail",
+      "ImageFile": "Assets/tails/snaketrail.png",
+      "Points": {
+        "ToPart2": {
+          "x": 7,
+          "y": 98
+        }
+      }
+    },
+    {
+      "Type": "cowleg1",
+      "ImageFile": "Assets/torso/cowleg1.png",
+      "Points": {
+        "ToBody": {
+          "x": 160,
+          "y": 30
+        }
+      }
+    },
+    {
+      "Type": "cowleg2",
+      "ImageFile": "Assets/torso/cowleg2.png",
+      "Points": {
+        "ToBody": {
+          "x": 234,
+          "y": 290
+        }
+      }
+    },
+    {
+      "Type": "cowtorso",
+      "ImageFile": "Assets/torso/cowtorso.png",
+      "Points": {
+        "ToHead": {
+          "x": 171,
+          "y": 217
+        },
+        "ToTail": {
+          "x": 1027,
+          "y": 214
+        },
+        "ToFootLeft": {
+          "x": 378,
+          "y": 481
+        },
+        "ToFootLeftHidden": {
+          "x": 295,
+          "y": 481
+        },
+        "ToFootRight": {
+          "x": 790,
+          "y": 2440
+        },
+        "ToFootRightHidden": {
+          "x": 760,
+          "y": 2440
+        }
+      }
+    },
+    {
+      "Type": "devilslegsleft",
+      "ImageFile": "Assets/torso/devilslegsleft.png",
+      "Points": {
+        "ToBody": {
+          "x": 172,
+          "y": 10
+        },
+        "ToFoot": {
+          "x": 144,
+          "y": 290
+        }
+      }
+    },
+    {
+      "Type": "devilslegsright",
+      "ImageFile": "Assets/torso/devilslegsright.png",
+      "Points": {       
+        "ToBody": {
+          "x": 10,
+          "y": 20
+        },
+        "Ear2": {
+          "x": 50,
+          "y": 20
+        }
+      }
+    },
+    {
+      "Type": "devilstorso",
+      "ImageFile": "Assets/torso/devilstorso.png",
+      "Points": {
+        "ToHead": {
+          "x": 222,
+          "y": 5
+        },
+        "ToArmLeft": {
+          "x": 100,
+          "y": 45
+        },
+        "ToArmRight": {
+          "x": 336,
+          "y": 45
+        },
+        "ToLegLeft": {
+          "x": 85,
+          "y": 526
+        },
+        "ToLegRight": {
+          "x": 354,
+          "y": 517
+        }
+      }
+    },
+    {
+      "Type": "humanlegs",
+      "ImageFile": "Assets/torso/humanlegs.png",
+      "Points": {
+        "ToBody": {
+          "x": 79,
+          "y": 3
+        }
+      }
+    },
+    {
+      "Type": "humantorso",
+      "ImageFile": "Assets/torso/humantorso.png",
+      "Points": {
+        "ToHead": {
+          "x": 64,
+          "y": 10
+        },
+        "ToArmLeft": {
+          "x": 13,
+          "y": 16
+        },
+        "ToArmRight": {
+          "x": 106,
+          "y": 19
+        },
+        "Middle": {
+          "x": 54,
+          "y": 39
+        },
+        "ToLegs": {
+          "x": 61,
+          "y": 84
+        }
+      }
+    },
+    {
+      "Type": "snaketorso",
+      "ImageFile": "Assets/torso/snaketorso.png",
+      "Points": {
+        "ToPart2": {
+          "x": 243,
+          "y": 109
+        },
+        "Middle": {
+          "x": 160,
+          "y": 70
+        },
+        "ToHead": {
+          "x": 103,
+          "y": 20
+        }
+      }
+    },
+    {
+      "Type": "snaketorso2",
+      "ImageFile": "Assets/torso/snaketorso2.png",
+      "Points": {
+        "ToTorso": {
+          "x": 8,
+          "y": 114
+        },
+        "Middle": {
+          "x": 78,
+          "y": 119
+        },
+        "ToTail": {
+          "x": 147,
+          "y": 130
+        }
+      }
+    },
+    {
+      "Type": "A",
+      "ImageFile": "Assets/demo/A.png",
+      "Points": {
+        "a": {
+          "x": 16,
+          "y": 10
+        },
+         "b": {
+          "x": 16,
+          "y": 100
+        },
+        "c": {
+          "x": 50,
+          "y": 90
+        },
+        "d": {
+          "x": 60,
+          "y": 5
+        }
+      }
+    },
+    {
+      "Type": "B",
+      "ImageFile": "Assets/demo/B.png",
+      "Points": {
+        "a": {
+          "x": 15,
+          "y": 64
+        },
+         "b": {
+          "x": 200,
+          "y": 20
+        },
+        "c": {
+          "x": 110,
+          "y": 110
+        }
+      }
+    },
+    {
+      "Type": "C",
+      "ImageFile": "Assets/demo/C.png",
+      "Points": {
+        "a": {
+          "x": 15,
+          "y": 64
+        },
+         "b": {
+          "x": 20,
+          "y": 115
+        },
+        "c": {
+          "x": 70,
+          "y": 115
+        },
+        "d": {
+          "x": 150,
+          "y": 115
+        },
+        "e": {
+          "x": 200,
+          "y": 115
+        }
+      }
+    },
+    {
+      "Type": "D",
+      "ImageFile": "Assets/demo/D.png",
+      "Points": {
+        "a": {
+          "x": 11,
+          "y": 11
+        },
+         "b": {
+          "x": 11,
+          "y": 90
+        }
+      }
+    }
+  ],
+  "RepositoryName": "DemoRepository",
+  "RepositoryDescription": "Constains art from South Park and others",
+  "Version": 1,
+  "Autors": [
+    {
+      "Name": "Marcus Pinnecke",
+      "EMail": "marcus.pinnecke@ovgu.de"
+    }
+  ]
+}
