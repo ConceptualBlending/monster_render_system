@@ -5,7 +5,7 @@ Scientific team projects for master students of the Faculty of Computer Science 
 Installation Instructions
 =====================
 
-Medusa is written in C# using MonoGame. If you want to run this tool you need the [Mono](http://www.mono-project.com/) and [MonoGame](http://www.monogame.net/) installed on your machine. Although the target platforms are Linux and Mac OS you should be able to compile and run in on Windows using .NET and XNA. 
+Medusa is written in C# using MonoGame. If you want to run this tool you need the [Mono](http://www.mono-project.com/) platform and [MonoGame](http://www.monogame.net/) installed on your machine. Although the target platforms are Linux and Mac OS you should be able to compile and run in on Windows using .NET and XNA. 
 
 Linux
 -----
