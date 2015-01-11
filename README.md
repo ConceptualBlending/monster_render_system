@@ -25,15 +25,22 @@ Download and install [Mono Runtime Environment Package](http://www.mono-project.
 Development Instructions
 =====================
 
+* TODO: Use *unsafe* option.
+
 Linux
 -----
+Using [MonoDevelop](http://www.monodevelop.com/) as development environment with MonoGame Plugin is recommended.
 ```
 sudo apt-get install libmonogame-cil-dev monodevelop-monogame
 ```
 
+Mac OS
+------
+Using [MonoDevelop/Xamarin Studio](http://xamarin.com/) as development environment with [MonoGame Plugin](http://www.monogame.net/downloads/) is recommended.
 
-- TODO: Use *unsafe* option.
-- 
+Windows
+-----
+This project was not tested on Windows but should be buildable with Visual C# Express and XNA GameStudio. 
 
 Usage Instructions
 =====================
