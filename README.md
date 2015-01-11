@@ -9,6 +9,7 @@ Development Instructions
 =====================
 
 - TODO: Use *unsafe* option.
+- 
 
 Usage Instructions
 =====================
@@ -150,6 +151,8 @@ The index file content is
   ]
 }
 ```
+**Important note**: Pleace take for all assets, files, references or external resources case-sensivity into account.
+
 Markup files
 -------------------
 This file contains individual definitions (based on a type inside the repository) and relation definitions which conntects and move individuals. Not each type in the repository is required to use. In the following we want to create 4 individuals. Two of them are from type *Type2* whereas one is from type *Type3* and the other is *Typpe4*. Inside the definitions part we connect some connections points of those defined individuals.
