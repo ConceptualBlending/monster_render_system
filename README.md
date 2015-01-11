@@ -1,11 +1,15 @@
 Medusa Rendering Ontologies Utility
 =====================
-
 Scientific team projects for master students of the Faculty of Computer Science (FIN), ,(c) Marcus Pinnecke, (marcus.pinnecke@st.ovgu.de). This project is part of conceptual blending project, see https://github.com/ConceptualBlending.
 
-Running Medusa
+Installation Instructions
 =====================
 
+Development Instructions
+=====================
+
+Usage Instructions
+=====================
 It is recommanded to run medusa via terminal. Because plattform differences, the process is a bit different for linux and OS X. In general, running medusa without any additional command line will open the help information which is the same as
 ```
 $./Medusa2 --help
