@@ -5,8 +5,25 @@ Scientific team projects for master students of the Faculty of Computer Science 
 Installation Instructions
 =====================
 
+Linux
+-----
+
+```
+sudo apt-get install mono-complete
+```
+
+tetsed on Ubuntu.
+
+
 Development Instructions
 =====================
+
+Linux
+-----
+```
+sudo apt-get install libmonogame-cil-dev monodevelop-monogame
+```
+
 
 - TODO: Use *unsafe* option.
 - 
