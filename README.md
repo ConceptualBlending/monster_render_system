@@ -27,7 +27,7 @@ Options:
 --- | --- | ---
 | -h, | --help |  Show this help
 | -w, | --window | Show a window containg the rendered image
-| -v, | --verbose |  Display more information during runtim
+| -v, | --verbose |  Display more information during runtime
 | -p, | --points | Display connection points
 | -n, | --no-output | Disable output file creation
 
