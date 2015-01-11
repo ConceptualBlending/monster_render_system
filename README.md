@@ -16,6 +16,11 @@ sudo apt-get install mono-complete
 
 tetsed on Ubuntu.
 
+Mac OS
+------
+
+Download and install [Mono Runtime Environment Package](http://www.mono-project.com/download/). For further instructions see [Introduction to Mono on OS X](http://www.mono-project.com/docs/about-mono/supported-platforms/osx/).
+
 
 Development Instructions
 =====================
