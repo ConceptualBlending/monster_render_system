@@ -9,6 +9,9 @@ This repository contains the tool to render the output by conceptual blending to
 
 
 Running Medusa on OS X
-=======================
+----------------------
+
+```
 $cd Medusa/Binaries/Release/Medusa2.app/Contents/MacOS/
 $./Medusa2 REP_FILE INPUT_FILE [OUTPUT_FILE]
+```
