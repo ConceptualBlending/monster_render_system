@@ -45,13 +45,24 @@ namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa.C
 			this.Name = name;
 			this.LocalPosition = localPosition;
 			this.Type = pt;
+
+			if (Config.VerboseMode)
+				Console.WriteLine (string.Format ("Create reference point name={0}, x={1}, y={2}", name, localPosition.X, localPosition.Y));
 		}
 
 		//
 		// Methods
 		//
 		public void UpdateParentPosition(Vector2 parentPosition) {
+			if (Config.VerboseMode)
+				Console.WriteLine (string.Format ("Update reference point name={0}, parent old={1}, parent new={2}", this.Name, this.ParentPosition, parentPosition));
+
 			this.ParentPosition = parentPosition;
+		}
+
+		public override string ToString ()
+		{
+			return string.Format ("[ReferencePoint: LocalPosition={0}, GlobalPosition={1}, Name={2}, Type={3}]", LocalPosition, GlobalPosition, Name, Type);
 		}
 	}
 }

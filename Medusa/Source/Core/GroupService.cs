@@ -61,10 +61,22 @@ namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa.C
 
 		private void SingleGrouping(ReferencePointContainer a, ReferencePointContainer b) 
 		{
-			if (!groups.ContainsKey (a))
+			if (!groups.ContainsKey (a)) {
 				groups.Add (a, new ArrayList<ReferencePointContainer> ());
-			if (!groups [a].Contains(b))
+				if (Config.VerboseMode)
+					Console.WriteLine (string.Format ("Create grouping {0}", a.Identifier));
+			}
+			if (!groups [a].Contains (b)) {
+				if (Config.VerboseMode)
+					Console.WriteLine (string.Format ("Add {0} \n\tto group {1}", a.Identifier, b.Identifier));
+
 				groups [a].Add (b);
+			}
+		}
+
+		public override string ToString ()
+		{
+			return string.Format ("[GroupService: ]");
 		}
 	}
 }

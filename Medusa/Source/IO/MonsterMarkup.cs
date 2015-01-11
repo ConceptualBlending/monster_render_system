@@ -33,6 +33,11 @@ namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa.I
 				this.Identifier = identifier;
 				this.Type = type;
 			}
+
+			public override string ToString ()
+			{
+				return string.Format ("[Individual: Identifier={0}, Type={1}]", Identifier, Type);
+			}
 		}
 
 		public List<Relation> Relations {
@@ -68,6 +73,11 @@ namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa.I
 				this.Point1 = point1;
 				this.Point2 = point2;
 			}
+
+			public override string ToString ()
+			{
+				return string.Format ("[Relation: Individual1={0}, Point1={1}, Individual2={2}, Point2={3}]", Individual1, Point1, Individual2, Point2);
+			}
 		}
 
 		public string Serialize() 
@@ -78,6 +88,11 @@ namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa.I
 		public static MonsterMarkup Deserialize(string jsonString)
 		{
 			return JsonConvert.DeserializeObject<MonsterMarkup> (jsonString);
+		}
+
+		public override string ToString ()
+		{
+			return string.Format ("[MonsterMarkup: Definitions={0}, Relations={1}]", Definitions, Relations);
 		}
 	}
 }

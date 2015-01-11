@@ -94,6 +94,9 @@ namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa.C
 			findPoints (c1, ref1, c2, ref2, out lp1, out lp2);
 
 			calculateMovement (c1, lp1, c2, lp2);
+
+			if (Config.VerboseMode)
+				Console.WriteLine (string.Format ("Connect container={0}, ref1={1} with container={2}, ref1={3}", container1, ref1, container2, ref2));
 		}
 
 		void findPoints (ReferencePointContainer c1, string ref1, ReferencePointContainer c2, string ref2, out ReferencePoint lp1, out ReferencePoint lp2)
@@ -139,6 +142,11 @@ namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa.C
 		private void ForEach(Action<ReferencePointContainer> action) {
 			foreach (var element in this)
 				action.Invoke (element);
+		}
+
+		public override string ToString ()
+		{
+			return string.Format ("[Universe]");
 		}
 	}
 }

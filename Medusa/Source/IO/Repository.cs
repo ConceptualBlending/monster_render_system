@@ -21,6 +21,11 @@ namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa.I
 				this.x = x;
 				this.y = y;
 			}
+
+			public override string ToString ()
+			{
+				return string.Format ("[Vec2: x={0}, y={1}]", x, y);
+			}
 		}
 
 		public class TypeItem {
@@ -45,6 +50,11 @@ namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa.I
 				this.Type = typeName;
 				this.ImageFile = imageFile;
 				this.Points = new Dictionary<string, Vec2>();
+			}
+
+			public override string ToString ()
+			{
+				return string.Format ("[TypeItem: Type={0}, ImageFile={1}, Points={2}]", Type, ImageFile, Points);
 			}
 		}
 
@@ -121,6 +131,11 @@ namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa.I
 			var retval = JsonConvert.DeserializeObject<Repository> (jsonString);
 			retval.RootDirectory = rootDirectory + "/";
 			return retval;
+		}
+
+		public override string ToString ()
+		{
+			return string.Format ("[Repository: RepositoryContent={0}, RepositoryName={1}, RepositoryDescription={2}, Version={3}, Autors={4}, RootDirectory={5}]", RepositoryContent, RepositoryName, RepositoryDescription, Version, Autors, RootDirectory);
 		}
 	}
 }
