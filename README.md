@@ -77,7 +77,72 @@ The repository index file *myrep.jso* contains (relative) paths to images inside
 
 The index file content is
 ```
-ABC
+{
+  "MedusaFormatToken": "REP_TYPE_FORMAT_1",
+  "RepositoryContent": [
+    {
+      "Type": "Type1",
+      "ImageFile": "A/a.png",
+      "Points": {
+        "Point1": {
+          "x": 340,
+          "y": 100
+        }
+      }
+    },
+    {
+      "Type": "Type2",
+      "ImageFile": "A/a.png",
+      "Points": {
+        "Point1": {
+          "x": 140,
+          "y": 200
+        },
+        "Point2": {
+          "x": 110,
+          "y": 110
+        }
+      }
+    },
+    {
+      "Type": "Type3",
+      "ImageFile": "A/b.png",
+      "Points": {
+        "Point1": {
+          "x": 340,
+          "y": 100
+        },
+        "Point2": {
+          "x": 100,
+          "y": 410
+        }
+      }
+    },
+    {
+      "Type": "Type4",
+      "ImageFile": "B/b.png",
+      "Points": {
+        "Point1": {
+          "x": 340,
+          "y": 100
+        },
+        "Point2": {
+          "x": 100,
+          "y": 410
+        }
+      }
+    }
+  ],
+  "RepositoryName": "DemoRepository",
+  "RepositoryDescription": "Constains art for demo",
+  "Version": 1,
+  "Autors": [
+    {
+      "Name": "Marcus Pinnecke",
+      "EMail": "marcus.pinnecke@st.ovgu.de"
+    }
+  ]
+}
 ```
 Markup files
 -------------------
@@ -85,7 +150,52 @@ This file contains individual definitions (based on a type inside the repository
 
 The markup file content is:
 ```
-ABC
+{
+  "Definitions": [
+    {
+      "Identifier": "i1",
+      "Type": "Type2"
+    },
+    {
+      "Identifier": "i2",
+      "Type": "Type2"
+    },
+    {
+      "Identifier": "i3",
+      "Type": "Type3"
+    },
+    {
+      "Identifier": "i4",
+      "Type": "Type4"
+    }
+  ],
+  "Relations": [
+    {
+      "Individual1": "i1",
+      "Point1": "Point1",
+      "Individual2": "i3",
+      "Point2": "Point1"
+    },
+    {
+      "Individual1": "i2",
+      "Point1": "Point2",
+      "Individual2": "i3",
+      "Point2": "Point2"
+    },
+    {
+      "Individual1": "i3",
+      "Point1": "Point1",
+      "Individual2": "i1",
+      "Point2": "Point2"
+    },
+    {
+      "Individual1": "i4",
+      "Point1": "Point1",
+      "Individual2": "i2",
+      "Point2": "Point1"
+    }
+  ]
+}
 ```
 To render the markup file relative to the repository, call:
 ```
