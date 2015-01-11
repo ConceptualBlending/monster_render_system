@@ -11,6 +11,9 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Media;
 using System.Collections.Generic;
 using Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa.IO;
+using System.Drawing;
+using System.Runtime.InteropServices;
+using System.Drawing.Imaging;
 
 namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa
 {
@@ -68,7 +71,7 @@ namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa
 
 		protected override void Draw (GameTime gameTime)
 		{
-			graphics.GraphicsDevice.Clear (Color.CornflowerBlue);
+			graphics.GraphicsDevice.Clear (Microsoft.Xna.Framework.Color.CornflowerBlue);
 			SaveAsPng ();
 			base.Draw (gameTime);
 		}
@@ -84,7 +87,7 @@ namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa
 			int height = (int) (universe.GetMaxHeight () + universe.GetMaximumY() + correction.Y);
 
 			if (Config.ShowWindow) {
-				GraphicsDevice.Clear(Color.White);
+				GraphicsDevice.Clear(Microsoft.Xna.Framework.Color.White);
 
 				spriteBatch.Begin();
 				universe.Draw (spriteBatch);
@@ -97,7 +100,7 @@ namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa
 						SurfaceFormat.Color, DepthFormat.Depth24);
 
 				GraphicsDevice.SetRenderTarget(render);
-				GraphicsDevice.Clear(Color.White);
+				GraphicsDevice.Clear(Microsoft.Xna.Framework.Color.White);
 
 				spriteBatch.Begin();
 				universe.Draw (spriteBatch);
@@ -106,10 +109,69 @@ namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa
 				GraphicsDevice.SetRenderTarget(null);
 
 				FileStream fs = new FileStream(this.outputFileName, FileMode.OpenOrCreate);
-				render.SaveAsPng(fs, width, height);
+				SaveAsImage(render, fs, width, height, ImageFormat.Png);
 				fs.Flush();
 
 				firstRun = false;
+			}
+		}
+
+		// This method is copied from windows source of monogame because current monogame linux port
+		// does not offer this method.
+		private void SaveAsImage(RenderTarget2D source, Stream stream, int width, int height, ImageFormat format)
+		{
+			if (stream == null)
+			{
+				throw new ArgumentNullException("stream", "'stream' cannot be null (Nothing in Visual Basic)");
+			}
+			if (width <= 0)
+			{
+				throw new ArgumentOutOfRangeException("width", width, "'width' cannot be less than or equal to zero");
+			}
+			if (height <= 0)
+			{
+				throw new ArgumentOutOfRangeException("height", height, "'height' cannot be less than or equal to zero");
+			}
+			if (format == null)
+			{
+				throw new ArgumentNullException("format", "'format' cannot be null (Nothing in Visual Basic)");
+			}
+
+			byte[] data = null;
+			GCHandle? handle = null;
+			Bitmap bitmap = null;
+			try 
+			{
+				data = new byte[width * height * 4];
+				handle = GCHandle.Alloc(data, GCHandleType.Pinned);
+				source.GetData(data);
+
+				// internal structure is BGR while bitmap expects RGB
+				for(int i = 0; i < data.Length; i += 4)
+				{
+					byte temp = data[i + 0];
+					data[i + 0] = data[i + 2];
+					data[i + 2] = temp;
+				}
+
+				bitmap = new Bitmap(width, height, width * 4, System.Drawing.Imaging.PixelFormat.Format32bppArgb, handle.Value.AddrOfPinnedObject());
+
+				bitmap.Save(stream, format);
+			} 
+			finally 
+			{
+				if (bitmap != null)
+				{
+					bitmap.Dispose();
+				}
+				if (handle.HasValue)
+				{
+					handle.Value.Free();
+				}
+				if (data != null)
+				{
+					data = null;
+				}
 			}
 		}
 

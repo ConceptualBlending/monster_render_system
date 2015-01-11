@@ -154,7 +154,7 @@ namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa
 		public static void printExample()
 		{
 			Console.WriteLine ("    The following example shows how to create a simple repository at ");
-			Console.WriteLine ("    ~/repository and and input file ~/input/input.json. ");
+			Console.WriteLine ("    ~/repository and an input file ~/input/input.json. ");
 			Console.WriteLine ("    The result of rendering will be stored in ~/output/myfile.png. ");
 			Console.WriteLine ("    The repository will contain 4 images and the repository index file.");
 			Console.WriteLine ("    Inside the index file three of those four images were indexed,");
