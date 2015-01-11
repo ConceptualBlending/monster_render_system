@@ -8,6 +8,8 @@ Installation Instructions
 Development Instructions
 =====================
 
+- TODO: Use *unsafe* option.
+
 Usage Instructions
 =====================
 It is recommanded to run medusa via terminal. Because plattform differences, the process is a bit different for linux and OS X. In general, running medusa without any additional command line will open the help information which is the same as
