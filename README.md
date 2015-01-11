@@ -19,7 +19,7 @@ tetsed on Ubuntu.
 Mac OS
 ------
 
-Download and install [Mono Runtime Environment Package](http://www.mono-project.com/download/). For further instructions see [Introduction to Mono on OS X](http://www.mono-project.com/docs/about-mono/supported-platforms/osx/).
+Download and install [Mono Runtime Environment Package](http://www.mono-project.com/download/) if don't have installed it already. For further instructions see [Introduction to Mono on OS X](http://www.mono-project.com/docs/about-mono/supported-platforms/osx/).
 
 
 Development Instructions
@@ -29,7 +29,7 @@ Development Instructions
 
 Linux
 -----
-Using [MonoDevelop](http://www.monodevelop.com/) as development environment with MonoGame Plugin is recommended.
+Using [MonoDevelop](http://www.monodevelop.com/) as development environment with MonoGame Plugin is recommended. If you don't have this installed already type the following into your terminal.
 ```
 sudo apt-get install libmonogame-cil-dev monodevelop-monogame
 ```
