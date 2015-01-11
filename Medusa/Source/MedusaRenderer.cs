@@ -14,6 +14,7 @@ using Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa.IO;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Drawing.Imaging;
+using Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa.Utils;
 
 namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa
 {
@@ -178,62 +179,9 @@ namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa
 		public Texture2D GetTexture (string fileName)
 		{
 			FileStream filestream = new FileStream(fileName, FileMode.Open);
-			var result = Texture2D.FromStream(graphics.GraphicsDevice, filestream);
+			var result = Texture2DUtils.CreateFromStream(graphics.GraphicsDevice, filestream);
 			filestream.Close ();
 			return result;
-		}
-
-		// Source: http://stackoverflow.com/questions/19187737/converting-a-bgr-bitmap-to-rgb
-		public static Bitmap RGBtoBGR(Bitmap bmp)
-		{
-			BitmapData data = bmp.LockBits(new System.Drawing.Rectangle(0, 0, bmp.Width, bmp.Height),
-				ImageLockMode.ReadWrite, bmp.PixelFormat);
-
-			int length = Math.Abs(data.Stride) * bmp.Height;
-
-			unsafe
-			{
-				byte* rgbValues = (byte*)data.Scan0.ToPointer();
-
-				for (int i = 0; i < length; i += 3)
-				{
-					byte dummy = rgbValues[i];
-					rgbValues[i] = rgbValues[i + 2];
-					rgbValues[i + 2] = dummy;
-				}
-			}
-
-			bmp.UnlockBits(data);
-			return bmp;
-		}
-
-		public Texture2D CreateFromStream(GraphicsDevice gd, FileStream stream)
-		{
-			Bitmap image = (Bitmap)Bitmap.FromStream(stream);
-			try
-			{
-				// Fix up the Image to match the expected format
-				image = RGBtoBGR(image);
-
-				var data = new byte[image.Width * image.Height * 4];
-
-				BitmapData bitmapData = image.LockBits(new System.Drawing.Rectangle(0, 0, image.Width, image.Height),
-					ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-				if (bitmapData.Stride != image.Width * 4) 
-					throw new NotImplementedException();
-				Marshal.Copy(bitmapData.Scan0, data, 0, data.Length);
-				image.UnlockBits(bitmapData);
-
-				Texture2D texture = null;
-				texture = new Texture2D(gd, image.Width, image.Height);
-				texture.SetData(data);
-
-				return texture;
-			}
-			finally
-			{
-				image.Dispose();
-			}
 		}
 
 		void ImportIntoUniverse(string individualName) {

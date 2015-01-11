@@ -81,6 +81,7 @@
     <Compile Include="Source\Core\ITextureRepository.cs" />
     <Compile Include="Source\Core\IConnectionPointDefinition.cs" />
     <Compile Include="Source\IO\Repository.cs" />
+    <Compile Include="Source\Utils\Texture2DUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Assets\Point.png" />
@@ -109,6 +110,7 @@
     <Folder Include="Source\Core\" />
     <Folder Include="Source\IO\" />
     <Folder Include="Extern\" />
+    <Folder Include="Source\Utils\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Extern\MedusaIcon\1420424695_18072.ico" />
