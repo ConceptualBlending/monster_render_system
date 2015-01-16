@@ -1,26 +1,25 @@
 ﻿using System;
-using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 using Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa.Core;
+using Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa.Utils;
+using System.Drawing;
 
 namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa.IO
 { 
 	public class FileSystemTextureRepository : ITextureRepository
 	{
 		private string path;
-		private GraphicsDevice graphicsDevice;
 
-		public FileSystemTextureRepository(string path, GraphicsDevice graphicsDevice)
+		public FileSystemTextureRepository(string path)
 		{
 			this.path = (path.EndsWith("/") || path.EndsWith("\\") ? path : path + "/").Replace("\\","/");
-			this.graphicsDevice = graphicsDevice;
 		}
 
 		#region ITextureRepository implementation
-		public Texture2D GetTexture (string assetName)
+		public Bitmap GetTexture (string assetName)
 		{
-			FileStream filestream = new FileStream(path + assetName, FileMode.CreateNew);
-			return Texture2D.FromStream(graphicsDevice, filestream);
+			var filename = path + assetName;
+			return (Bitmap) Bitmap.FromFile(filename);
 		}
 		#endregion
 	}

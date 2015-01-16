@@ -2,41 +2,49 @@
 using C5;
 using System.Linq;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
 using System.IO;
+using Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa.Utils;
+using System.Drawing;
 
 namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa.Core
 {
 	public class Universe : ArrayList<ReferencePointContainer>
 	{
-		private Texture2D pointTexture1, pointTexture2;
+		//private Image pointTexture1, pointTexture2;
 
 		//
 		// Constructor
 		//
-		public Universe(Game game) {
-			pointTexture1 = game.Content.Load<Texture2D> ("point");
-			pointTexture2 = game.Content.Load<Texture2D> ("point2");
+		public Universe() {
+			//pointTexture1 = game.Content.Load<Texture2D> ("point");
+			//pointTexture2 = game.Content.Load<Texture2D> ("point2");
 		}
 
 		//
 		// Methods
 		//
-		public void Draw(SpriteBatch batch) 
+		public Bitmap Draw() 
 		{
 			Vector2 minLeft = this.GetDrawableObjectMinPosition ();
 			Vector2 correction = new Vector2 (minLeft.X < 0 ? -minLeft.X : minLeft.X, minLeft.Y < 0 ? -minLeft.Y : minLeft.Y); 
 
+			Bitmap result = new Bitmap ((int) this.GetOverallWidth (), (int) this.GetOverallHeight ());
+
 			this.ForEach ( container => 
 				{
-					batch.Draw (container.Texture, container.GlobalPosition + correction, Color.White);
+					using (Graphics grD = Graphics.FromImage(result))            
+					{
+						grD.DrawImage(container.Texture, new RectangleF(correction.X + container.GlobalPosition.X, correction.Y + container.GlobalPosition.Y, container.Texture.Width, container.Texture.Height));                
+					}
+				//	batch.Draw (container.Texture, container.GlobalPosition + correction, Color.White);
 
-					if (Config.ShowConnectionsPoints)
-						Array.ForEach(container.LocalPoints, point => batch.Draw (point.Type == ReferencePoint.PointType.A ? pointTexture1 : pointTexture2, 
-							point.GlobalPosition + new Vector2(-8,-8) + correction, Color.White));
+				//	if (Config.ShowConnectionsPoints)
+				//		Array.ForEach(container.LocalPoints, point => batch.Draw (point.Type == ReferencePoint.PointType.A ? pointTexture1 : pointTexture2, 
+				//			point.GlobalPosition + new Vector2(-8,-8) + correction, Color.White));
 				}
 			);
+
+			return result;
 		}
 
 		public bool Contains(string individualName)
@@ -45,6 +53,38 @@ namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa.C
 				if (this [i].Identifier == individualName)
 					return true;
 			return false;
+		}
+
+		public int GetOverallWidth ()
+		{
+			int maxX = 0;
+
+			Vector2 minpos = this.GetDrawableObjectMinPosition ();
+			Vector2 correction = new Vector2 (minpos.X < 0 ? -minpos.X : minpos.X, minpos.Y < 0 ? -minpos.Y : minpos.Y); 
+
+			foreach (var container in this) {
+				var objx = correction.X + container.GlobalPosition.X + container.Width;
+				maxX = (int) Math.Max (maxX, objx);
+
+			}
+				
+			return maxX;
+		}
+
+		public int GetOverallHeight ()
+		{
+			int maxY = 0;
+
+			Vector2 minpos = this.GetDrawableObjectMinPosition ();
+			Vector2 correction = new Vector2 (minpos.X < 0 ? -minpos.X : minpos.X, minpos.Y < 0 ? -minpos.Y : minpos.Y); 
+
+			foreach (var container in this) {
+				var objy = correction.Y + container.GlobalPosition.Y + container.Height;
+				maxY = (int) Math.Max (maxY, objy);
+
+			}
+
+			return maxY;
 		}
 
 		public float GetMaxWidth ()
@@ -146,7 +186,10 @@ namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa.C
 
 		public override string ToString ()
 		{
-			return string.Format ("[Universe]");
+			string s = "";
+			foreach (var o in this)
+				s += o.ToString () + "\n\t";
+			return string.Format ("[Universe] : \n\t"+s);
 		}
 	}
 }

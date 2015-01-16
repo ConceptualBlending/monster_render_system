@@ -3,22 +3,27 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-using MonoMac.AppKit;
-using MonoMac.Foundation;
 using System.IO;
 using Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa.IO;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Drawing.Imaging;
 
 namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa
 {
 	static class Program
-	{
+	{ 
+
 		/// <summary>
 		/// The main entry point for the application.
 		/// </summary>
+		[STAThread]
 		static void Main (string[] args)
 		{
-			string repositoryFile, markupFile, outputFileName;
-			ParseResult result = parseArguments (args, out repositoryFile, out markupFile, out outputFileName);
+			string repositoryFile = "/Users/marcus/Projects/ConceptualBlending/monster_render_system/Medusa/Documents/MonsterRenderer/Repository/Repository.json";
+			string markupFile = "/Users/marcus/Projects/ConceptualBlending/monster_render_system/Medusa/Documents/MonsterRenderer/MonsterMarkup/markup1.json";
+			string outputFileName = "/Users/marcus/Projects/ConceptualBlending/monster_render_system/Medusa/Documents/MonsterRenderer/OutputFiles/abc1234511.png";
+			ParseResult result = ParseResult.Ok;//parseArguments (args, out repositoryFile, out markupFile, out outputFileName);
 
 			if (result == ParseResult.Ok) {
 
@@ -39,19 +44,19 @@ namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa
 					throw new Exception ("Illegal configuration combination. If you don't show the application window you have to enable the output storing flag.");
 
 
-				NSApplication.Init ();
+				var medusa = new MedusaRenderer (repository, monsterMarkup, outputFileName);
+				Bitmap renderedImaged = medusa.Run ();
 
-				using (var p = new NSAutoreleasePool ()) {
-					NSApplication.SharedApplication.Delegate = new AppDelegate (repository, monsterMarkup, outputFileName);
-					NSApplication.Main (args);
+				renderedImaged.Save (outputFileName, ImageFormat.Png);
+
+				if (Config.ShowWindow) {
+
 				}
-
-			} else {
-
 			}
 
 		}
 
+	
 		public class ArgComparer : IEqualityComparer<string>
 		{
 			public bool Equals (string x, string y)
@@ -206,31 +211,6 @@ namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa
 		public static readonly string markup_demo = "{\n  \"Definitions\": [\n    {\n      \"Identifier\": \"i1\",\n      \"Type\": \"Type2\"\n    },\n    {\n      \"Identifier\": \"i2\",\n      \"Type\": \"Type2\"\n    },\n    {\n      \"Identifier\": \"i3\",\n      \"Type\": \"Type3\"\n    },\n    {\n      \"Identifier\": \"i4\",\n      \"Type\": \"Type4\"\n    }\n  ],\n  \"Relations\": [\n    {\n      \"Individual1\": \"i1\",\n      \"Point1\": \"Point1\",\n      \"Individual2\": \"i3\",\n      \"Point2\": \"Point1\"\n    },\n    {\n      \"Individual1\": \"i2\",\n      \"Point1\": \"Point2\",\n      \"Individual2\": \"i3\",\n      \"Point2\": \"Point2\"\n    },\n    {\n      \"Individual1\": \"i3\",\n      \"Point1\": \"Point1\",\n      \"Individual2\": \"i1\",\n      \"Point2\": \"Point2\"\n    },\n    {\n      \"Individual1\": \"i4\",\n      \"Point1\": \"Point1\",\n      \"Individual2\": \"i2\",\n      \"Point2\": \"Point1\"\n    }\n  ]\n}".Replace("\n", "\n\t");
 
 
-	}
-
-	class AppDelegate : NSApplicationDelegate
-	{
-		MedusaRenderer game;
-		Repository repository;
-		MonsterMarkup markup;
-		string outputFileName;
-
-		public AppDelegate(Repository repository, MonsterMarkup markup, string outputFileName) {
-			this.repository = repository;
-			this.markup = markup;
-			this.outputFileName = outputFileName;
-		}
-
-		public override void FinishedLaunching (MonoMac.Foundation.NSObject notification)
-		{
-			game = new MedusaRenderer (repository, markup, outputFileName);
-			game.Run ();
-		}
-
-		public override bool ApplicationShouldTerminateAfterLastWindowClosed (NSApplication sender)
-		{
-			return true;
-		}
 	}
 }
 

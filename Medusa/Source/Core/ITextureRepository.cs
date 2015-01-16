@@ -1,11 +1,11 @@
 ﻿using System;
-using Microsoft.Xna.Framework.Graphics;
+using System.Drawing;
 
 namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa.Core
 {
 	public interface ITextureRepository
 	{
-		Texture2D GetTexture(string assetName);
+		Bitmap GetTexture(string assetName);
 	}
 }
 

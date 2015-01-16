@@ -28,19 +28,28 @@
     <EnableCodeSigning>false</EnableCodeSigning>
     <CreatePackage>false</CreatePackage>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Commandlineparameters>/Users/marcus/Projects/ConceptualBlending/monster_render_system/Medusa/Documents/MonsterRenderer/Repository/Repository.json /Users/marcus/Projects/ConceptualBlending/monster_render_system/Medusa/Documents/MonsterRenderer/MonsterMarkup/markup1.json /Users/marcus/Projects/ConceptualBlending/monster_render_system/Medusa/Documents/MonsterRenderer/OutputFiles/abc1234511.png</Commandlineparameters>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Optimize>true</Optimize>
     <OutputPath>Binaries\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
     <UseSGen>false</UseSGen>
     <IncludeMonoRuntime>false</IncludeMonoRuntime>
     <EnablePackageSigning>false</EnablePackageSigning>
     <EnableCodeSigning>false</EnableCodeSigning>
     <CreatePackage>false</CreatePackage>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Commandlineparameters>/Users/marcus/Projects/ConceptualBlending/monster_render_system/Medusa/Documents/MonsterRenderer/Repository/Repository.json /Users/marcus/Projects/ConceptualBlending/monster_render_system/Medusa/Documents/MonsterRenderer/MonsterMarkup/markup1.json /Users/marcus/Projects/ConceptualBlending/monster_render_system/Medusa/Documents/MonsterRenderer/OutputFiles/abc1234511.png</Commandlineparameters>
+    <ConsolePause>false</ConsolePause>
+    <EnvironmentVariables>
+      <EnvironmentVariables>
+        <Variable name="MEDUSA_REP_FILE" value="/Users/marcus/Projects/ConceptualBlending/monster_render_system/Medusa/Documents/MonsterRenderer/Repository/Repository.json" />
+        <Variable name="MEDUSA_INPUT_FILE" value="/Users/marcus/Projects/ConceptualBlending/monster_render_system/Medusa/Documents/MonsterRenderer/MonsterMarkup/markup1.json" />
+        <Variable name="MEDUSA_OUTPUT_FILE" value="/Users/marcus/Projects/ConceptualBlending/monster_render_system/Medusa/Documents/MonsterRenderer/OutputFiles/abc1234511.png" />
+      </EnvironmentVariables>
+    </EnvironmentVariables>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AppStore|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -74,7 +83,6 @@
     <Compile Include="Source\Core\Universe.cs" />
     <Compile Include="Source\MedusaRenderer.cs" />
     <Compile Include="Source\IO\FileSystemTextureRepository.cs" />
-    <Compile Include="Source\IO\InternalTextureRepository.cs" />
     <Compile Include="Source\Config.cs" />
     <Compile Include="Source\IO\MonsterMarkup.cs" />
     <Compile Include="Source\IO\Validator.cs" />
@@ -82,6 +90,7 @@
     <Compile Include="Source\Core\IConnectionPointDefinition.cs" />
     <Compile Include="Source\IO\Repository.cs" />
     <Compile Include="Source\Utils\Texture2DUtils.cs" />
+    <Compile Include="Source\Utils\Vector2.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Assets\Point.png" />
@@ -90,21 +99,16 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <Reference Include="MonoMac">
-      <HintPath>Dependencies\MonoMac\MonoMac.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="Mono.C5" />
-    <Reference Include="MonoGame.Framework">
-      <HintPath>Dependencies\MonoGame\MonoGame.Framework.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>Dependencies\Json.NET\Net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Source\Core\" />

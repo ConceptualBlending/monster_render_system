@@ -1,14 +1,6 @@
 ﻿using Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa.Core;
 using System.IO;
 using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Input.Touch;
-using Microsoft.Xna.Framework.Storage;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Media;
 using System.Collections.Generic;
 using Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa.IO;
 using System.Drawing;
@@ -18,10 +10,8 @@ using Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa.Utils
 
 namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa
 {
-	public class MedusaRenderer : Game
+	public class MedusaRenderer 
 	{
-		GraphicsDeviceManager graphics;
-		SpriteBatch spriteBatch;
 		Universe universe;
 		Repository repository;
 		string outputFileName;
@@ -29,17 +19,19 @@ namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa
 
 		public MedusaRenderer (Repository repository, MonsterMarkup markup, string outputFileName)
 		{
-			graphics = new GraphicsDeviceManager (this);			
-			Content.RootDirectory = "Assets";
-			graphics.IsFullScreen = false;
-			this.Window.Title = "Medusa";
 			this.repository = repository;
 			this.outputFileName = outputFileName;
 			this.markup = markup;
 		}
 
+		public Bitmap Run() 
+		{
+			buildUniverse ();
+			return SaveAsPng ();
+		}
+
 		void buildUniverse() {
-			universe = new Universe (this);
+			universe = new Universe ();
 
 			foreach (var relation in markup.Relations) {
 				ImportIntoUniverse (relation.Individual1);
@@ -48,46 +40,21 @@ namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa
 			}
 		}
 
-		protected override void Initialize ()
+//		public bool firstRun = true;
+
+		public Bitmap SaveAsPng() 
 		{
-			base.Initialize ();
-		}
+//			Vector2 minLeft = universe.GetDrawableObjectMinPosition ();
+//			Vector2 correction = new Vector2 (minLeft.X < 0 ? -minLeft.X : minLeft.X, minLeft.Y < 0 ? -minLeft.Y : minLeft.Y);
+//
+//			int width = (int) (universe.GetMaxWidth() + universe.GetMaximumX() + correction.X);
+//			int height = (int) (universe.GetMaxHeight () + universe.GetMaximumY() + correction.Y);
+//
+//			Console.WriteLine ("Storing..." + universe.ToString());
 
-		protected override void LoadContent ()
-		{
-			spriteBatch = new SpriteBatch (graphics.GraphicsDevice);
+			return universe.Draw ();
 
-			buildUniverse ();
-	
-			if (Config.StoreOutputImage && !Config.ShowWindow)
-				SaveAsPng ();
-		}
-
-		protected override void Update (GameTime gameTime)
-		{
-			if (!Config.ShowWindow)
-				base.Exit ();		
-			base.Update (gameTime);
-		}
-
-		protected override void Draw (GameTime gameTime)
-		{
-			graphics.GraphicsDevice.Clear (Microsoft.Xna.Framework.Color.CornflowerBlue);
-			SaveAsPng ();
-			base.Draw (gameTime);
-		}
-
-		public bool firstRun = true;
-
-		public void SaveAsPng() 
-		{
-			Vector2 minLeft = universe.GetDrawableObjectMinPosition ();
-			Vector2 correction = new Vector2 (minLeft.X < 0 ? -minLeft.X : minLeft.X, minLeft.Y < 0 ? -minLeft.Y : minLeft.Y);
-
-			int width = (int) (universe.GetMaxWidth() + universe.GetMaximumX() + correction.X);
-			int height = (int) (universe.GetMaxHeight () + universe.GetMaximumY() + correction.Y);
-
-			if (Config.ShowWindow) {
+			/*if (Config.ShowWindow) {
 				GraphicsDevice.Clear(Microsoft.Xna.Framework.Color.White);
 
 				spriteBatch.Begin();
@@ -114,12 +81,12 @@ namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa
 				fs.Flush();
 
 				firstRun = false;
-			}
+			}*/
 		}
 
 		// This method is copied from windows source of monogame because current monogame linux port
 		// does not offer this method.
-		private void SaveAsImage(RenderTarget2D source, Stream stream, int width, int height, ImageFormat format)
+		private void SaveAsImage(Image source, Stream stream, int width, int height, ImageFormat format)
 		{
 			if (stream == null)
 			{
@@ -138,7 +105,7 @@ namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa
 				throw new ArgumentNullException("format", "'format' cannot be null (Nothing in Visual Basic)");
 			}
 
-			byte[] data = null;
+		/*	byte[] data = null;
 			GCHandle? handle = null;
 			Bitmap bitmap = null;
 			try 
@@ -173,15 +140,12 @@ namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa
 				{
 					data = null;
 				}
-			}
+			}*/
 		}
 
-		public Texture2D GetTexture (string fileName)
+		public Bitmap GetTexture (string fileName)
 		{
-			FileStream filestream = new FileStream(fileName, FileMode.Open);
-			var result = Texture2DUtils.CreateFromStream(graphics.GraphicsDevice, filestream);
-			filestream.Close ();
-			return result;
+			return (Bitmap) Bitmap.FromFile (fileName);
 		}
 
 		void ImportIntoUniverse(string individualName) {

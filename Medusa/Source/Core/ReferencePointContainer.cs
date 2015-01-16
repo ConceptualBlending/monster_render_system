@@ -1,10 +1,10 @@
 ﻿using System;
-using Microsoft.Xna.Framework;
 using System.Linq;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework.Graphics;
 using Mono.CSharp;
 using C5;
+using Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa.Utils;
+using System.Drawing;
 
 namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa.Core
 {
@@ -30,7 +30,7 @@ namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa.C
 			set; 
 		}
 
-		public Texture2D Texture {
+		public Bitmap Texture {
 			get;
 			set;
 		}
@@ -55,7 +55,7 @@ namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa.C
 		//
 		// Constructor
 		//
-		public ReferencePointContainer(string identifer, Texture2D texture, params ReferencePoint[] localPoints) {
+		public ReferencePointContainer(string identifer, Bitmap texture, params ReferencePoint[] localPoints) {
 			this.LocalPoints = localPoints;
 			this.Identifier = identifer;
 			this.Texture = texture;
@@ -78,7 +78,7 @@ namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa.C
 			Array.ForEach (childs.ToArray(), child => child.Translate (GlobalPosition));
 		}
 
-		void checkLocalPointsInBounds (Texture2D texture, ReferencePoint[] localPoints)
+		void checkLocalPointsInBounds (Image texture, ReferencePoint[] localPoints)
 		{
 			var maxwidth = texture.Width;
 			var maxheight = texture.Height;

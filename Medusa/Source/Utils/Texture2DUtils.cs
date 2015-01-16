@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Drawing;
 using System.Drawing.Imaging;
-using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 using System.Runtime.InteropServices;
 
@@ -11,7 +10,7 @@ namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa.U
 	{
 		// Source: http://stackoverflow.com/questions/19187737/converting-a-bgr-bitmap-to-rgb
 		// just for 4 bytes
-		public static Bitmap RGBAtoBGRA(Bitmap bmp)
+	/*	public static Bitmap RGBAtoBGRA(Bitmap bmp)
 		{
 			BitmapData data = bmp.LockBits(new System.Drawing.Rectangle(0, 0, bmp.Width, bmp.Height),
 				ImageLockMode.ReadWrite, bmp.PixelFormat);
@@ -34,7 +33,7 @@ namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa.U
 			return bmp;
 		}
 
-		public static Texture2D CreateFromStream(GraphicsDevice gd, FileStream stream)
+		public static Image CreateFromStream(FileStream stream)
 		{
 			Bitmap image = (Bitmap)Bitmap.FromStream (stream);
 			try
@@ -61,7 +60,7 @@ namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa.U
 			{
 				image.Dispose();
 			}
-		}
+		}*/
 	}
 }
 
