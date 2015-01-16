@@ -36,7 +36,7 @@ Development Instructions
 
 Dependencies
 ------------
-[Json.NET]{http://james.newtonking.com/json} tested with .NET 3.5 version
+[Json.NET](http://james.newtonking.com/json) tested with .NET 3.5 version, which should be referenced when compiling the source. 
 
 * TODO: Use *unsafe* option.
 
