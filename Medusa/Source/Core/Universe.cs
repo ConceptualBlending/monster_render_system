@@ -1,5 +1,4 @@
 ﻿using System;
-using C5;
 using System.Linq;
 using System.Collections.Generic;
 using System.IO;
@@ -8,17 +7,9 @@ using System.Drawing;
 
 namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa.Core
 {
-	public class Universe : ArrayList<ReferencePointContainer>
+	public class Universe : List<ReferencePointContainer>
 	{
 		//private Image pointTexture1, pointTexture2;
-
-		//
-		// Constructor
-		//
-		public Universe() {
-			//pointTexture1 = game.Content.Load<Texture2D> ("point");
-			//pointTexture2 = game.Content.Load<Texture2D> ("point2");
-		}
 
 		//
 		// Methods
@@ -36,11 +27,6 @@ namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa.C
 					{
 						grD.DrawImage(container.Texture, new RectangleF(correction.X + container.GlobalPosition.X, correction.Y + container.GlobalPosition.Y, container.Texture.Width, container.Texture.Height));                
 					}
-				//	batch.Draw (container.Texture, container.GlobalPosition + correction, Color.White);
-
-				//	if (Config.ShowConnectionsPoints)
-				//		Array.ForEach(container.LocalPoints, point => batch.Draw (point.Type == ReferencePoint.PointType.A ? pointTexture1 : pointTexture2, 
-				//			point.GlobalPosition + new Vector2(-8,-8) + correction, Color.White));
 				}
 			);
 
@@ -49,7 +35,7 @@ namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa.C
 
 		public bool Contains(string individualName)
 		{
-			for (int i = 0; i < this.size; i++)
+			for (int i = 0; i < this.Count; i++)
 				if (this [i].Identifier == individualName)
 					return true;
 			return false;
@@ -134,9 +120,6 @@ namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa.C
 			findPoints (c1, ref1, c2, ref2, out lp1, out lp2);
 
 			calculateMovement (c1, lp1, c2, lp2);
-
-			if (Config.VerboseMode)
-				Console.WriteLine (string.Format ("Connect container={0}, ref1={1} with container={2}, ref1={3}", container1, ref1, container2, ref2));
 		}
 
 		void findPoints (ReferencePointContainer c1, string ref1, ReferencePointContainer c2, string ref2, out ReferencePoint lp1, out ReferencePoint lp2)
@@ -177,11 +160,6 @@ namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa.C
 			var delta = globalPoint2 - globalPoint1;
 			GroupService.Instance.Apply (c1, groupMember => groupMember.Translate (delta));
 			GroupService.Instance.Group (c1, c2);
-		}
-
-		private void ForEach(Action<ReferencePointContainer> action) {
-			foreach (var element in this)
-				action.Invoke (element);
 		}
 
 		public override string ToString ()

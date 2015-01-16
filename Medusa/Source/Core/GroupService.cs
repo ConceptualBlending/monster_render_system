@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
-using C5;
+using System.Linq;
 
 namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa.Core
 {
@@ -31,7 +30,7 @@ namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa.C
 		}
 		#endregion
 
-		private Dictionary<ReferencePointContainer, ArrayList<ReferencePointContainer>> groups = new Dictionary<ReferencePointContainer, ArrayList<ReferencePointContainer>>();
+		private Dictionary<ReferencePointContainer, List<ReferencePointContainer>> groups = new Dictionary<ReferencePointContainer, List<ReferencePointContainer>>();
 
 		//
 		// Methods
@@ -54,7 +53,7 @@ namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa.C
 						Apply (friend, action, aux);
 				}
 			} else {
-				groups.Add (member, new ArrayList<ReferencePointContainer> ());
+				groups.Add (member, new List<ReferencePointContainer> ());
 				action.Invoke (member);
 			}
 		}
@@ -62,14 +61,9 @@ namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa.C
 		private void SingleGrouping(ReferencePointContainer a, ReferencePointContainer b) 
 		{
 			if (!groups.ContainsKey (a)) {
-				groups.Add (a, new ArrayList<ReferencePointContainer> ());
-				if (Config.VerboseMode)
-					Console.WriteLine (string.Format ("Create grouping {0}", a.Identifier));
+				groups.Add (a, new List<ReferencePointContainer> ());
 			}
 			if (!groups [a].Contains (b)) {
-				if (Config.VerboseMode)
-					Console.WriteLine (string.Format ("Add {0} \n\tto group {1}", a.Identifier, b.Identifier));
-
 				groups [a].Add (b);
 			}
 		}

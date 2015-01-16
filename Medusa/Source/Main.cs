@@ -6,8 +6,9 @@ using System.Linq;
 using System.IO;
 using Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa.IO;
 using System.Drawing;
-using System.Windows.Forms;
 using System.Drawing.Imaging;
+using System.Windows.Forms;
+using medusa;
 
 namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa
 {
@@ -20,40 +21,75 @@ namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa
 		[STAThread]
 		static void Main (string[] args)
 		{
-			string repositoryFile = "/Users/marcus/Projects/ConceptualBlending/monster_render_system/Medusa/Documents/MonsterRenderer/Repository/Repository.json";
-			string markupFile = "/Users/marcus/Projects/ConceptualBlending/monster_render_system/Medusa/Documents/MonsterRenderer/MonsterMarkup/markup1.json";
-			string outputFileName = "/Users/marcus/Projects/ConceptualBlending/monster_render_system/Medusa/Documents/MonsterRenderer/OutputFiles/abc1234511.png";
-			ParseResult result = ParseResult.Ok;//parseArguments (args, out repositoryFile, out markupFile, out outputFileName);
+
+			string repositoryFile, markupFile, outputFileName;
+
+			var result = parseArguments (args, out repositoryFile, out markupFile, out outputFileName);
 
 			if (result == ParseResult.Ok) {
 
-				if (Config.VerboseMode) {
-					Console.WriteLine ("[Modes: show connection points={0}, show window={1}, store image={2}m verbose mode={3}]", Config.ShowConnectionsPoints, Config.ShowWindow, Config.StoreOutputImage, Config.VerboseMode);
-					Console.WriteLine ("[IO: repository file={0}, markup file={1}, output file={2}]", repositoryFile, markupFile, outputFileName);
-				}
-			
-				string repositoryRoot = Path.GetDirectoryName (repositoryFile);
+				try {
 
-				var repository = Repository.Deserialize (repositoryRoot, string.Join ("\n", File.ReadAllLines (repositoryFile)));
-				var monsterMarkup = MonsterMarkup.Deserialize (string.Join ("\n", File.ReadAllLines (markupFile)));
+					var repositoryRoot = Path.GetDirectoryName (repositoryFile);
 
-				var validator = new Validator (repository, monsterMarkup);
-				validator.validate ();
+					var repository = Repository.Deserialize (repositoryRoot, string.Join ("\n", File.ReadAllLines (repositoryFile)));
 
-				if (!(Config.ShowWindow || Config.StoreOutputImage))
-					throw new Exception ("Illegal configuration combination. If you don't show the application window you have to enable the output storing flag.");
+					var monsterMarkupContent = "";
+					if (Config.UseStdIn) {
+						Console.ForegroundColor = ConsoleColor.Gray;
+						Console.WriteLine ("Type :done if you finished your input or :cancel to abort.");
+						Console.ResetColor ();
 
 
-				var medusa = new MedusaRenderer (repository, monsterMarkup, outputFileName);
-				Bitmap renderedImaged = medusa.Run ();
+						bool readFurther = true;
+						do {
+							Console.ForegroundColor = ConsoleColor.Gray;
+							Console.Write (">");
+							Console.ResetColor ();
 
-				renderedImaged.Save (outputFileName, ImageFormat.Png);
+							var input = Console.ReadLine().TrimEnd();
 
-				if (Config.ShowWindow) {
+							if (input.EndsWith (":cancel"))
+								return;
+							readFurther = !input.EndsWith (":done");
 
+							monsterMarkupContent += readFurther? input : input.Replace(":done", "") + "\n";
+
+						} while (readFurther);
+
+					} else {
+						monsterMarkupContent = string.Join ("\n", File.ReadAllLines (markupFile));
+					}
+
+					var monsterMarkup = MonsterMarkup.Deserialize (monsterMarkupContent);
+
+					var validator = new Validator (repository, monsterMarkup);
+					validator.validate ();
+
+
+					if (!(Config.ShowWindow || Config.StoreOutputImage))
+						throw new Exception ("Illegal configuration combination. If you don't show the application window you have to enable the output storing flag.");
+
+					var medusa = new MedusaRenderer (repository, monsterMarkup, outputFileName);
+					Bitmap renderedImaged = medusa.Run ();
+
+					if (Config.ShowWindow) {
+						Application.Run(new ImageViewer(renderedImaged));
+					}
+
+					if (Config.StoreOutputImage) {
+						if (!Config.AllowOutputOverwrite && File.Exists (outputFileName)) {
+							Console.WriteLine ("Output file \"{0}\" already exists. Choose another file or use -o (--overwrite) flag");
+						} else {
+							renderedImaged.Save (outputFileName, ImageFormat.Png);
+						}
+					}
+				} catch (Exception e) {
+					Console.BackgroundColor = ConsoleColor.Red;
+					Console.ForegroundColor = ConsoleColor.White;
+					Console.WriteLine (e.Message);
 				}
 			}
-
 		}
 
 	
@@ -90,65 +126,106 @@ namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa
 			string helpLong = "--help";
 			string helpShort = "-h";
 
+			string examplesLong = "--show-examples";
+			string examplesShort = "-e";
+
 			string windowLong = "--window";
 			string windowShort = "-w";
-
-			string verboseLong = "--verbose";
-			string verboseShort = "-v";
-
-			string pointsLong = "--points";
-			string pointsShort = "-p";
 
 			string noOutputLong = "--no-output";
 			string noOutputShort = "-n";
 
+			string noOverwriteLong = "--overwrite";
+			string noOverwriteShort = "-o";
+
+			string stdInLong = "--use-stdin";
+
+
 			Config.ShowWindow = (args.Contains (windowLong, argComparer) || args.Contains (windowShort, argComparer));
-			Config.ShowConnectionsPoints = (args.Contains (pointsLong, argComparer) || args.Contains (pointsShort, argComparer));
 			Config.StoreOutputImage = !args.Contains (noOutputLong, argComparer) && !args.Contains (noOutputShort, argComparer);
-			Config.VerboseMode = (args.Contains (verboseLong, argComparer) || args.Contains (verboseShort, argComparer));
+			Config.AllowOutputOverwrite = (args.Contains (noOverwriteLong, argComparer) || args.Contains (noOverwriteShort, argComparer));
+			Config.UseStdIn = (args.Contains (stdInLong, argComparer));
 
-			int noffset = Config.StoreOutputImage ? 1 : 0;
 
-			if (args.Length == 0 || args.Length < 2 + noffset || args.Contains (helpLong, argComparer) || args.Contains (helpShort, argComparer))  {
+			if (args.Contains (examplesLong, argComparer) || args.Contains (examplesShort, argComparer)) {
+				Console.WriteLine ("\nExamples:");
+				printExample ();
+
+				return ParseResult.ShowHelp;
+			} else if (args.Contains (helpLong, argComparer) || args.Contains (helpShort, argComparer)) {
 				Console.WriteLine ("Medusa Rendering Ontologies Utility, \n(c) Marcus Pinnecke, marcus.pinnecke@st.ovgu.de\nThis program is part of conceptual blending project, \nsee https://github.com/ConceptualBlending");
 				Console.WriteLine ("\nUsage:");
-				Console.WriteLine ("    medusa [options] repositroy-file markup-file [output-file]");
+				Console.WriteLine ("    mono medusa.exe [options] repositroy-file [markup-file] [output-file]");
 				Console.WriteLine ("\nOptions:");
-				Console.WriteLine (string.Format("    {0}\t{1}", "-h, --help".PadRight(20), "Show this help"));
-				Console.WriteLine (string.Format("    {0}\t{1}", "-w, --window".PadRight(20), "Show a window containg the rendered image"));
-				Console.WriteLine (string.Format("    {0}\t{1}", "-v, --verbose".PadRight(20), "Display more information during runtime"));
-				Console.WriteLine (string.Format("    {0}\t{1}", "-p, --points".PadRight(20), "Display connection points"));
-				Console.WriteLine (string.Format("    {0}\t{1}", "-n, --no-output".PadRight(20), "Disable output file creation."));
+				Console.WriteLine (string.Format ("    {0}\t{1}", "-h, --help".PadRight (20), "Show this help and quit"));
+				Console.WriteLine (string.Format ("    {0}\t{1}", "-e, --show-examples".PadRight (20), "Show examples and quit"));
+				Console.WriteLine (string.Format ("    {0}\t{1}", "-w, --window".PadRight (20), "Show a window containg the rendered image"));
+				Console.WriteLine (string.Format ("    {0}\t{1}", "-o, --overwrite".PadRight (20), "Allows overwriting existing output files"));
+				Console.WriteLine (string.Format ("    {0}\t{1}", "--use-stdin".PadRight (20), "Reads the input markup file from stdin"));
+				Console.WriteLine (string.Format ("    {0}\t{1}", "-n, --no-output".PadRight (20), "Disable output file creation."));
 				Console.WriteLine ("\nArguments:");
-				Console.WriteLine (string.Format("    {0}\t{1}", "repositroy-file (required)".PadRight(20), "Path to a .json repository file"));
-				Console.WriteLine (string.Format("    {0}\t{1}", "markup-file (required)".PadRight(20), "Path to a .json input file containing the markup"));
-				Console.WriteLine (string.Format("    {0}\t{1}", "output-file (optional)".PadRight(20), "Path to a not existing file for output"));
+				Console.WriteLine (string.Format ("    {0}\t{1}", "repositroy-file (required)".PadRight (20), "Path to a .json repository file"));
+				Console.WriteLine (string.Format ("    {0}\t{1}", "markup-file (optional)".PadRight (20), "Path to a .json input file containing the markup"));
+				Console.WriteLine (string.Format ("    {0}\t{1}", "output-file (optional)".PadRight (20), "Path to a not existing file for output"));
 				Console.WriteLine ("\nNotes:");
 				Console.WriteLine ("    The option -n cannot stand alone without the -w option whereas it is ");
 				Console.WriteLine ("    possible to generate an output file and display it the same time. ");
 				Console.WriteLine ("    If -n is not set you have to set the [output-file] argument.");
-				Console.WriteLine ("\nExamples:");
-				printExample ();
+				Console.WriteLine ("    If using --use-stdin then [markup-file] is not allowed.");
 				Console.WriteLine ("\n\nIf you found any bugs, please report them to marcus.pinnecke@st.ovgu.de");
 
 				return ParseResult.ShowHelp;
-			} 
+			} else if (args.Length == 0 || args.Length < 1 + (Config.UseStdIn ? 0 : 1) + (Config.StoreOutputImage ? 1 : 0)) {
+				Console.ForegroundColor = ConsoleColor.Red;
+				Console.WriteLine ("usage:\tmono medusa.exe [options] repositroy-file [markup-file] [output-file]\nUse --help for more information.");
+				return ParseResult.ShowHelp;
+			}
 
-			repositoryFile = args [args.Length - 2 - noffset];
-			markupFile = args [args.Length - 1 - noffset];
-			outputFile = Config.StoreOutputImage? args [args.Length - 1] : "";
 
-			if (Config.StoreOutputImage && File.Exists (outputFile)) {
-				Console.WriteLine (string.Format ("Output file \"{0}\" does already exists.", outputFile));
+
+			if (Config.StoreOutputImage) {
+				if (Config.UseStdIn) {
+					repositoryFile = args [args.Length - 2];
+					outputFile = args [args.Length - 1];
+					markupFile = "";
+				} else {
+					repositoryFile = args [args.Length - 3];
+					markupFile = args [args.Length - 2];
+					outputFile = args [args.Length - 1];
+				}
+			} else {
+				if (Config.UseStdIn) {
+					repositoryFile = args [args.Length - 1];
+					markupFile = "";
+					outputFile = "";
+				} else {
+					repositoryFile = args [args.Length - 2];
+					markupFile = args [args.Length - 1];
+					outputFile = "";
+				}
+			}
+
+			if (Config.StoreOutputImage && File.Exists (outputFile) && !Config.AllowOutputOverwrite) {
+				Console.ForegroundColor = ConsoleColor.Red;
+				Console.WriteLine (string.Format ("Output file \"{0}\" does already exists. Use -o flag. For more information use --help.", outputFile));
 				return ParseResult.OutputFileExists;
 			} 
 
-			if (!File.Exists (markupFile)) {
-				Console.WriteLine (string.Format ("Markup file \"{0}\" does not exist.", markupFile));
+			if (!Config.StoreOutputImage && Config.AllowOutputOverwrite) {
+				Console.ForegroundColor = ConsoleColor.Red;
+				Console.WriteLine (string.Format ("Overwrite option not available since output is disabled."));
+				return ParseResult.OutputFileExists;
+			} 
+
+			if (!Config.UseStdIn && !File.Exists (markupFile)) {
+				Console.ForegroundColor = ConsoleColor.Red;
+				Console.WriteLine (string.Format ("Markup file \"{0}\" does not exist. Consider to use std-in instead, see --help.", markupFile));
 				return ParseResult.MarkupFileNotExists;
 			}
 
 			if (!File.Exists (repositoryFile)) {
+				Console.BackgroundColor = ConsoleColor.DarkRed;
+				Console.ForegroundColor = ConsoleColor.White;
 				Console.WriteLine (string.Format ("Repository file \"{0}\" does not exist.", repositoryFile));
 				return ParseResult.RepositoryFileNotExists;
 			}

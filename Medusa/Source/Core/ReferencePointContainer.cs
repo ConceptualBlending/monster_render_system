@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
-using Mono.CSharp;
-using C5;
 using Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa.Utils;
 using System.Drawing;
 
@@ -50,7 +47,7 @@ namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa.C
 		//
 		// Fields
 		//
-		private ArrayList<ReferencePointContainer> childs = new ArrayList<ReferencePointContainer>();
+		private List<ReferencePointContainer> childs = new List<ReferencePointContainer>();
 
 		//
 		// Constructor
@@ -61,18 +58,12 @@ namespace Ovgu.ComputerScience.KnowledgeAndLanguageEngineering.Blending.Medusa.C
 			this.Texture = texture;
 			this.GlobalPosition = Vector2.Zero;
 			checkLocalPointsInBounds (texture, localPoints);
-
-			if (Config.VerboseMode)
-				Console.WriteLine ("Create container name={0}, #reference points={1}", identifer, localPoints.Length);
 		}
 
 		//
 		// Methods
 		//
 		public void Translate(Vector2 deltaPosition) {
-			if (Config.VerboseMode)
-				Console.WriteLine (string.Format ("Move container name={0}, global position old={1}, global position new={1}", this.Identifier, this.GlobalPosition, GlobalPosition += deltaPosition));
-
 			GlobalPosition += deltaPosition;
 			Array.ForEach (LocalPoints, point => point.UpdateParentPosition (GlobalPosition));
 			Array.ForEach (childs.ToArray(), child => child.Translate (GlobalPosition));
