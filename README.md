@@ -49,9 +49,9 @@ It is recommanded to run medusa via terminal. Because plattform differences, the
 $./Medusa2 --help
 ```
 ```
-mono medusa.exe [options] repositroy-file markup-file [output-file]
+mono medusa.exe [options] repositroy-file [markup-file] [output-file]
 ```
-Use *--help* for more information.
+Use *--help* for more information. If set *repositroy-file*, *markup-file* and *output-file* must be **absolute paths**.
 
 Running Medusa on OS X
 ----------------------
@@ -242,5 +242,5 @@ The markup file content is:
 ```
 To render the markup file relative to the repository, call:
 ```
-medusa ~/repository/myrep.json ~/input/input.json ~/output/myfile.png
+medusa /home/me/repository/myrep.json /home/me/input/input.json /home/me/output/myfile.png
 ```
