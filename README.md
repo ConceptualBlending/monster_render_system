@@ -48,7 +48,10 @@ It is recommanded to run medusa via terminal. Because plattform differences, the
 ```
 $./Medusa2 --help
 ```
-
+```
+mono medusa.exe [options] repositroy-file markup-file [output-file]
+```
+Use *--help* for more information.
 
 Running Medusa on OS X
 ----------------------
