@@ -22,6 +22,15 @@ Mac OS
 Download and install [Mono Runtime Environment Package](http://www.mono-project.com/download/) if don't have installed it already. For further instructions see [Introduction to Mono on OS X](http://www.mono-project.com/docs/about-mono/supported-platforms/osx/).
 
 
+First steps
+-----------
+
+Navigate to **Medusa/Binaries/Release** and try in your terminal
+
+```
+less ../../Examples/MonsterMarkup/stdin.txt | mono medusa.exe -w --use-stdin -n ../../Examples/Repository/Repository.json
+```
+
 Development Instructions
 =====================
 
