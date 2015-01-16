@@ -34,6 +34,10 @@ less ../../Examples/MonsterMarkup/stdin.txt | mono medusa.exe -w --use-stdin -n 
 Development Instructions
 =====================
 
+Dependencies
+------------
+[Json.NET]{http://james.newtonking.com/json} tested with .NET 3.5 version
+
 * TODO: Use *unsafe* option.
 
 Linux
