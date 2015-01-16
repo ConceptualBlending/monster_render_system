@@ -19,7 +19,6 @@
 *.[Cc]ache
 *.ilk
 *.log
-*.exe
 *.mdb
 *.lib
 *.sbr
