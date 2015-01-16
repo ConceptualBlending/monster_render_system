@@ -3,12 +3,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectTypeGuids>{948B3504-5B70-4649-8FE4-BDE1FB46EC69};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{C012DDF9-484C-4507-8441-DF8E620E85DF}</ProjectGuid>
+    <ProjectGuid>{6DFE532D-1F6D-4477-97E8-A1AF41B49E92}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>medusa</RootNamespace>
-    <AssemblyName>medusa</AssemblyName>
+    <RootNamespace>Medusa2</RootNamespace>
+    <MonoMacResourcePrefix>Resources</MonoMacResourcePrefix>
+    <AssemblyName>Medusa2</AssemblyName>
+    <SuppressXamMacUpsell>True</SuppressXamMacUpsell>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -19,44 +22,104 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
+    <UseSGen>false</UseSGen>
+    <IncludeMonoRuntime>false</IncludeMonoRuntime>
+    <EnablePackageSigning>false</EnablePackageSigning>
+    <EnableCodeSigning>false</EnableCodeSigning>
+    <CreatePackage>false</CreatePackage>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Commandlineparameters>/Users/marcus/Projects/ConceptualBlending/monster_render_system/Medusa/Documents/MonsterRenderer/Repository/Repository.json /Users/marcus/Projects/ConceptualBlending/monster_render_system/Medusa/Documents/MonsterRenderer/MonsterMarkup/markup1.json /Users/marcus/Projects/ConceptualBlending/monster_render_system/Medusa/Documents/MonsterRenderer/OutputFiles/abc1234511.png</Commandlineparameters>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>full</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>Binaries\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseSGen>false</UseSGen>
+    <IncludeMonoRuntime>false</IncludeMonoRuntime>
+    <EnablePackageSigning>false</EnablePackageSigning>
+    <EnableCodeSigning>false</EnableCodeSigning>
+    <CreatePackage>false</CreatePackage>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Commandlineparameters>/Users/marcus/Projects/ConceptualBlending/monster_render_system/Medusa/Documents/MonsterRenderer/Repository/Repository.json /Users/marcus/Projects/ConceptualBlending/monster_render_system/Medusa/Documents/MonsterRenderer/MonsterMarkup/markup1.json /Users/marcus/Projects/ConceptualBlending/monster_render_system/Medusa/Documents/MonsterRenderer/OutputFiles/abc1234511.png</Commandlineparameters>
     <ConsolePause>false</ConsolePause>
+    <EnvironmentVariables>
+      <EnvironmentVariables>
+        <Variable name="MEDUSA_REP_FILE" value="/Users/marcus/Projects/ConceptualBlending/monster_render_system/Medusa/Documents/MonsterRenderer/Repository/Repository.json" />
+        <Variable name="MEDUSA_INPUT_FILE" value="/Users/marcus/Projects/ConceptualBlending/monster_render_system/Medusa/Documents/MonsterRenderer/MonsterMarkup/markup1.json" />
+        <Variable name="MEDUSA_OUTPUT_FILE" value="/Users/marcus/Projects/ConceptualBlending/monster_render_system/Medusa/Documents/MonsterRenderer/OutputFiles/abc1234511.png" />
+      </EnvironmentVariables>
+    </EnvironmentVariables>
   </PropertyGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AppStore|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Binaries\AppStore</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <LinkMode>SdkOnly</LinkMode>
+    <UseSGen>false</UseSGen>
+    <IncludeMonoRuntime>true</IncludeMonoRuntime>
+    <PackageSigningKey>3rd Party Mac Developer Installer</PackageSigningKey>
+    <CreatePackage>true</CreatePackage>
+    <CodeSigningKey>3rd Party Mac Developer Application</CodeSigningKey>
+    <EnableCodeSigning>true</EnableCodeSigning>
+    <EnablePackageSigning>true</EnablePackageSigning>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
   <ItemGroup>
+    <None Include="packages\MonoMac.dll" />
+    <None Include="packages\MonoGame.Framework.dll" />
+    <None Include="packages\Lidgren.Network.dll" />
+    <None Include="Info.plist" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Source\Main.cs" />
+    <Compile Include="Source\Properties\AssemblyInfo.cs" />
     <Compile Include="Source\Core\GroupService.cs" />
-    <Compile Include="Source\Core\IConnectionPointDefinition.cs" />
-    <Compile Include="Source\Core\ITextureRepository.cs" />
     <Compile Include="Source\Core\ReferencePoint.cs" />
     <Compile Include="Source\Core\ReferencePointContainer.cs" />
     <Compile Include="Source\Core\Universe.cs" />
+    <Compile Include="Source\MedusaRenderer.cs" />
     <Compile Include="Source\IO\FileSystemTextureRepository.cs" />
+    <Compile Include="Source\Config.cs" />
     <Compile Include="Source\IO\MonsterMarkup.cs" />
-    <Compile Include="Source\IO\Repository.cs" />
     <Compile Include="Source\IO\Validator.cs" />
-    <Compile Include="Source\Properties\AssemblyInfo.cs" />
+    <Compile Include="Source\Core\ITextureRepository.cs" />
+    <Compile Include="Source\Core\IConnectionPointDefinition.cs" />
+    <Compile Include="Source\IO\Repository.cs" />
+    <Compile Include="Source\Utils\Texture2DUtils.cs" />
     <Compile Include="Source\Utils\Vector2.cs" />
-    <Compile Include="Source\Main.cs" />
-    <Compile Include="Source\Core\Config.cs" />
-    <Compile Include="Source\Core\MedusaRenderer.cs" />
-    <Compile Include="Source\Forms\ImageViewer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System.Data.Linq" />
+    <BundleResource Include="Assets\Point.png" />
+    <BundleResource Include="Assets\Point2.png" />
+    <BundleResource Include="Resources\1420424695_18072.icns" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Mono.C5" />
     <Reference Include="Newtonsoft.Json">
-      <HintPath>Dependencies\Json.NET\Net35\Newtonsoft.Json.dll</HintPath>
+      <HintPath>Dependencies\Json.NET\Net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Source\Forms\" />
+    <Folder Include="Source\Core\" />
+    <Folder Include="Source\IO\" />
+    <Folder Include="Extern\" />
+    <Folder Include="Source\Utils\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Extern\MedusaIcon\1420424695_18072.ico" />
+    <Content Include="Extern\MedusaIcon\1420424880_ksnake.png" />
+    <Content Include="Extern\MedusaIcon\LICENSE" />
+    <Content Include="Extern\MedusaIcon\README" />
   </ItemGroup>
 </Project>
