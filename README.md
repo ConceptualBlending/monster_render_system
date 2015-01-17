@@ -20,6 +20,8 @@ Get in contact with the developer on Twitter: [@marcus_pinnecke](https://twitter
     <a href="#customise-input-and-repository">Customise</a> &bull; 
     <a href="#example">Example</a> &bull; 
     <a href="#development">Development</a> &bull; 
+    <a href="#license">License</a> &bull; 
+    <a href="#Contributing">Contributing</a> &bull; 
 </p>
 -------
 
