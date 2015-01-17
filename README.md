@@ -244,7 +244,7 @@ Arguments:
 
 **Notes**: The option -n cannot stand alone without the -w option whereas it is possible to generate an output file and display it the same time.If -n is not set you have to set the [output-file] argument. The [markup-file] is not allowed if and only if *--use-stdin* flag is set.
 
-## Examples
+## Examples for Reposities and Markup Files
 Medusa comes with an example repository (Medusa/Examples/Repository/Repository.json) and some markup files to play with (Examples/MonsterMarkup/*.json). 
 
 ### Use of standard input
@@ -265,12 +265,241 @@ In this example Medusa runs in window mode without any file output. Because medu
 $ monsterman | convert | mono medusa.exe -w --use-stdin -n ../../Examples/Repository/Repository.json
 ```
 # Example
+This sections shows more complex examples, which are extracted from *Medusa/Examples/* inside the repository. Assume describing first a human-like individual with a typical human body and a hat then you will write something like the first markup file in this section. When you then want to switch to a similar individual wich is quite human-like but has a snake and with a tailing devils head, the second markup file shows how to do this.
+
+First take a look at a snapshot of the repository index file, which maps types like *humantorso*, *devilshead* and so on to images inside the repository directory and specify some points.
 
 ## Repository file
 ```
-
+{
+  "MedusaFormatToken": "REP_TYPE_FORMAT_1",
+  "RepositoryContent": [   
+    {
+      "Type": "humanarmleft",
+      "ImageFile": "Assets/arms/humanarmleft.png",
+      "Points": {
+        "ToBody": {
+          "x": 23,
+          "y": 12
+        },
+        "ToHand": {
+          "x": 12,
+          "y": 42
+        }
+      }
+    },
+    {
+      "Type": "humanarmright",
+      "ImageFile": "Assets/arms/humanarmright.png",
+      "Points": {
+        "ToBody": {
+          "x": 9,
+          "y": 12
+        },
+        "ToHand": {
+          "x": 21,
+          "y": 42
+        }
+      }
+    },
+    {
+      "Type": "devilseyes",
+      "ImageFile": "Assets/eyes/devilseyes.png",
+      "Points": {
+        "ToFace": {
+          "x": 37,
+          "y": 27
+        }
+      }
+    },
+    {
+      "Type": "humaneyes",
+      "ImageFile": "Assets/eyes/humaneyes.png",
+      "Points": {
+        "ToFace": {
+          "x": 70,
+          "y": 32
+        }
+      }
+    },
+    {
+      "Type": "humanhandsleft",
+      "ImageFile": "Assets/hands/humanhandsleft.png",
+      "Points": {
+        "ToArm": {
+          "x": 20,
+          "y": 15
+        }
+      }
+    },
+    {
+      "Type": "humanhandsright",
+      "ImageFile": "Assets/hands/humanhandsright.png",
+      "Points": {
+        "ToArm": {
+          "x": 30,
+          "y": 20
+        }
+      }
+    },
+    {
+      "Type": "hat1",
+      "ImageFile": "Assets/hat/hat1.png",
+      "Points": {
+        "ToHead": {
+          "x": 134,
+          "y": 95
+        }
+      }
+    },
+    {
+      "Type": "hat2",
+      "ImageFile": "Assets/hat/hat2.png",
+      "Points": {
+        "ToHead": {
+          "x": 130,
+          "y": 106
+        }
+      }
+    },
+    {
+      "Type": "devilshead",
+      "ImageFile": "Assets/heads/devilshead.png",
+      "Points": {
+        "ToBody": {
+          "x": 100,
+          "y": 180
+        },
+        "ToHat": {
+          "x": 102,
+          "y": 25
+        },
+        "ToEyes": {
+          "x": 100,
+          "y": 60
+        },
+        "ToNose": {
+          "x": 100,
+          "y": 90
+        },
+        "ToMouth": {
+          "x": 105,
+          "y": 130
+        }
+      }
+    },
+    {
+      "Type": "humanhead",
+      "ImageFile": "Assets/heads/humanhead.png",
+      "Points": {
+        "ToBody": {
+          "x": 130,
+          "y": 197
+        },
+        "ToHat": {
+          "x": 137,
+          "y": 42
+        },
+        "ToEyes": {
+          "x": 140,
+          "y": 100
+        },
+        "ToEarLeft": {
+          "x": 60,
+          "y": 100
+        },
+        "ToEarRight": {
+          "x": 215,
+          "y": 100
+        },
+        "ToMouth": {
+          "x": 130,
+          "y": 160
+        },
+        "ToNose": {
+          "x": 135,
+          "y": 135
+        }
+      }
+    },
+    {
+      "Type": "humanmouth",
+      "ImageFile": "Assets/mouth/humanmouth.png",
+      "Points": {
+        "ToFace": {
+          "x": 28,
+          "y": 15
+        }
+      }
+    },
+    {
+      "Type": "humanlegs",
+      "ImageFile": "Assets/torso/humanlegs.png",
+      "Points": {
+        "ToBody": {
+          "x": 79,
+          "y": 3
+        }
+      }
+    },
+    {
+      "Type": "humantorso",
+      "ImageFile": "Assets/torso/humantorso.png",
+      "Points": {
+        "ToHead": {
+          "x": 64,
+          "y": 10
+        },
+        "ToArmLeft": {
+          "x": 13,
+          "y": 16
+        },
+        "ToArmRight": {
+          "x": 106,
+          "y": 19
+        },
+        "Middle": {
+          "x": 54,
+          "y": 39
+        },
+        "ToLegs": {
+          "x": 61,
+          "y": 84
+        }
+      }
+    },
+    {
+      "Type": "snaketorso",
+      "ImageFile": "Assets/torso/snaketorso.png",
+      "Points": {
+        "ToPart2": {
+          "x": 243,
+          "y": 109
+        },
+        "Middle": {
+          "x": 160,
+          "y": 70
+        },
+        "ToHead": {
+          "x": 103,
+          "y": 20
+        }
+      }
+    }
+  ],
+  "RepositoryName": "DemoRepository",
+  "RepositoryDescription": "Constains art to demonstrate the repository",
+  "Version": 1,
+  "Autors": [
+    {
+      "Name": "Marcus Pinnecke",
+      "EMail": "email here"
+    }
+  ]
+}
 ```
 ### One markup file
+The following file (*Examples/MonsterMarkup/markup2.json*) shows how to describe a human individual and shows Medusa's output below.
 ```
 {
   "Definitions": [
@@ -379,6 +608,7 @@ $ monsterman | convert | mono medusa.exe -w --use-stdin -n ../../Examples/Reposi
 </h3>
 
 ### Another markup file
+This markup file (*Examples/MonsterMarkup/markup8.json*) shows how to describe a human-like monster with a snake as arm and a devils head connected to the snake. Medusa's output is shown below.
 ```
 {
   "Definitions": [
@@ -527,27 +757,52 @@ $ monsterman | convert | mono medusa.exe -w --use-stdin -n ../../Examples/Reposi
 </h3>
 
 # Development
+This section provides a brief introduction how to constribute or maintain Medusa. Medusa is written in pure C# using the standard components .NET framework. First you need a copy of the repository, which is described above. Second you need eighter .NET on Windows or Mono Development Kit (MDK). Furthermore an IDE can help you, where Visual Studio is recommended on Windows machines and MonoDevlop/Xamarin Studio is recommended for both Mac OS and Linx. 
 
-Medusa is written in pure C# using the standard components .NET framework. 
+## Setting up the environment
 
-Linux
------
-Using [MonoDevelop](http://www.monodevelop.com/) as development environment with MonoGame Plugin is recommended. If you don't have this installed already type the following into your terminal.
+### Linux
+The MDK is already installed, if you got Mono like above. Otherwhise type 
+```
+$ sudo apt-get install mono-complete
+```
+in your terminal. 
+
+Using [MonoDevelop](http://www.monodevelop.com/) as development environment is recommended. If you don't have this installed already type the following into your terminal.
 ```
 sudo apt-get install libmonogame-cil-dev monodevelop-monogame
 ```
 
-Mac OS
-------
-Using [MonoDevelop/Xamarin Studio](http://xamarin.com/) as development environment with [MonoGame Plugin](http://www.monogame.net/downloads/) is recommended.
+### Mac OS
+Using [MonoDevelop/Xamarin Studio](http://xamarin.com/) as development environment is recommended. You can download and install the packages provided by Xamarin. If you don't have the MDK installed, the package isntaller should do this automatically for you.
 
-Windows
------
+### Windows
 This project was not tested on Windows but should be buildable with [Visual C# Express](http://www.visualstudio.com/en-us/products/visual-studio-express-vs.aspx). 
 
+## Build Medusa
 
-Dependencies
-------------
-[Json.NET](http://james.newtonking.com/json) tested with .NET 3.5 version, which should be referenced when compiling the source. 
+Medusa comes with a Visual Studio compatible Xamarin Studio solution file (**Medusa.sln**). Opening and building it with your IDE should work without any issues. Please note, that there is a dependency to Json.NET which you have to solve before the first bild.
 
+### Dependencies
+Medusa uses [Json.NET](http://james.newtonking.com/json) to parse Json files but does not contain these packages. Just download the latest stable version and reference the project to it. To be portable between different OS types we experienced that Json.NET built for .NET 3.5 fits best. 
 
+## Project overview
+In *Medusa/Source* you will find the entire project's source files. The next table provides a short overview about the main responsibilities:
+
+| File                                 | Description
+| ------------------------------------ | -----------------------------------------------------------------------------
+| Main.cs	                             | Contains the program's entry point and argument parsing
+| Core/Config.cs                       | Configuration, associated to Medusa's argument flags
+| Core/GroupService.cs                 | Grouping of connected individuals in order to arrange them simultaneously
+| Core/IConnectionPointDefinition.cs   | Interface for connections points
+| Core/ITextureRepository.cs           | Interface for objects which devliver bitmap ressources for types
+| Core/MedusaRenderer.cs               | The core component which performs the drawing
+| Core/ReferencePoint.cs               | An implementation of the connection point concept
+| Core/ReferencePointContainer.cs      | An list of connection points, related to a given type
+| Core/Universe.cs                     | The set of all known (predefined) individuals which builds up the output
+| Forms/ImageViewer.cs                 | A window to show the output directly to the user
+| IO/FileSystemTextureRepository.cs    | An implementation of ITextureRepository which loads bitmaps from the file system
+| IO/Repository.cs                     | The correspondending class to repository index files, serializable by Json.NET
+| IO/MonsterMarkup.cs                  | The correspondending class to markup files, serializable by Json.NET
+| IO/Validator.cs                      | A class which checks several constrains to markups and repositories.
+| Utils/Vector2.cs                     | Simple 2D vectors
