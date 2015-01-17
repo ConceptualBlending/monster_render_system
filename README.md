@@ -17,8 +17,8 @@ Get in contact with the developer on Twitter: [@marcus_pinnecke](https://twitter
 <p align="center">
     <a href="#installation">Installation</a> &bull; 
     <a href="#quick-start">Quick Start</a> &bull; 
-    <a href="#customise">Customise</a> &bull; 
-    <a href="#extensions">Development</a> &bull; 
+    <a href="#customise-input-and-repository">Customise</a> &bull; 
+    <a href="#development">Development</a> &bull; 
 </p>
 -------
 
@@ -67,7 +67,7 @@ How an individual is descripted is done with a so called **markup file**. Basica
 $ mono medusa.exe <path to repository index file> <path to markup input file> <path to output file>
 ```
 
-#Customise Input and Repository
+# Customise Input and Repository
 ## Repositories
 
 A repository is a directory containing images indexed by a repository index file. Assume the following directory content:
@@ -264,7 +264,7 @@ In this example Medusa runs in window mode without any file output. Because medu
 $ monsterman | convert | mono medusa.exe -w --use-stdin -n ../../Examples/Repository/Repository.json
 ```
 
-# Develop
+# Development
 
 Medusa is written in pure C# using the standard components .NET framework. 
 
