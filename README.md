@@ -810,33 +810,34 @@ In *Medusa/Source* you will find the entire project's source files. The next tab
 ### Core Algorithm Outline
 ```
 function buildUniverseAndDraw() : bitmap
- {
-		universe := empty set of (name, bitap, list of local connection points) and relations
-    result := empty bitmap
+{
+   universe := empty set of (name, bitap, list of local connection points) and relations
+   result := empty bitmap
     
-		foreach (relation in relations of markup file) {
-			universe <- add inferInformations(relation.Individual1);
-			universe <- add inferInformations(relation.Individual2);
-			universe <- relate and move (relation.Individual1, *, relation.Point1) to (relation.Individual2, *, relation.Point2)) based on global positions of individual local connection points
-	  }
+   foreach (relation in relations of markup file) {
+      universe <- add inferInformations(relation.Individual1);
+      universe <- add inferInformations(relation.Individual2);
+      universe <- relate and move (relation.Individual1, *, relation.Point1) to (relation.Individual2, *, relation.Point2)) 
+                                   based on global positions of individual local connection points
+   }
 	  
-		correction := vector (x,y) with calucated offset to move all object into clipping area
-    result <- create clipping area with width := universe overall width, height := universe overall height
-		
-		forach (item in universe)
-		  draw item into "result" after appyling correction movement
+   correction := vector (x,y) with calucated offset to move all object into clipping area
+   result <- create clipping area with width := universe overall width, height := universe overall height
+	
+   forach (item in universe)
+      draw item into "result" after appyling correction movement
 		  
-		return result
+   return result
 }
 
 function inferInformations(individualName) : (name, bitap, list of local connection points)
 {
-	referencePoints := empty list
-  def := find definition of "individualName" in markup file
-  type := find type of "def" in repository
-  referencePoints := infer connections point of type related to "individualName"
-  bitmap := infer image of type related to "individualName"
+   referencePoints := empty list
+   def := find definition of "individualName" in markup file
+   type := find type of "def" in repository
+   referencePoints := infer connections point of type related to "individualName"
+   bitmap := infer image of type related to "individualName"
   
-  return (individualName, bitmap, referencePoints)
+   return (individualName, bitmap, referencePoints)
 }
 ```		
