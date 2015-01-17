@@ -18,6 +18,7 @@ Get in contact with the developer on Twitter: [@marcus_pinnecke](https://twitter
     <a href="#installation">Installation</a> &bull; 
     <a href="#quick-start">Quick Start</a> &bull; 
     <a href="#customise-input-and-repository">Customise</a> &bull; 
+    <a href="#example">Example</a> &bull; 
     <a href="#development">Development</a> &bull; 
 </p>
 -------
@@ -263,6 +264,307 @@ In this example Medusa runs in window mode without any file output. Because medu
 ```
 $ monsterman | convert | mono medusa.exe -w --use-stdin -n ../../Examples/Repository/Repository.json
 ```
+# Example
+
+## Repository file
+```
+
+```
+### One markup file
+```
+{
+  "Definitions": [
+    {
+      "Identifier": "torso",
+      "Type": "humantorso"
+    },
+    {
+      "Identifier": "armleft",
+      "Type": "snaketorso"
+    },
+    {
+      "Identifier": "armright",
+      "Type": "humanarmright"
+    },
+    {
+      "Identifier": "eyes",
+      "Type": "humaneyes"
+    },
+    {
+      "Identifier": "handright",
+      "Type": "humanhandsright"
+    },
+    {
+      "Identifier": "hat",
+      "Type": "hat2"
+    },
+    {
+      "Identifier": "head",
+      "Type": "humanhead"
+    },
+    {
+      "Identifier": "mouth",
+      "Type": "humanmouth"
+    },
+    {
+      "Identifier": "legs",
+      "Type": "humanlegs"
+    },
+    {
+      "Identifier": "horn1",
+      "Type": "devilhornleft"
+    },
+    {
+      "Identifier": "horn2",
+      "Type": "devilhornright"
+    },
+    {
+      "Identifier": "snaketorso2",
+      "Type": "snaketorso"
+    },
+    {
+      "Identifier": "head2",
+      "Type": "devilshead"
+    },
+    {
+      "Identifier": "eyes2",
+      "Type": "devilseyes"
+    }
+  ],
+  "Relations": [
+    {
+      "Individual1": "torso",
+      "Point1": "ToHead",
+      "Individual2": "head",
+      "Point2": "ToBody"
+    },
+    {
+      "Individual1": "head",
+      "Point1": "ToHat",
+      "Individual2": "hat",
+      "Point2": "ToHead"
+    },
+    {
+      "Individual1": "head",
+      "Point1": "ToEarLeft",
+      "Individual2": "horn1",
+      "Point2": "ToHead"
+    },
+    {
+      "Individual1": "head",
+      "Point1": "ToEarRight",
+      "Individual2": "horn2",
+      "Point2": "ToHead"
+    },
+    {
+      "Individual1": "head",
+      "Point1": "ToMouth",
+      "Individual2": "eyes",
+      "Point2": "ToFace"
+    },
+    {
+      "Individual1": "head",
+      "Point1": "ToEyes",
+      "Individual2": "mouth",
+      "Point2": "ToFace"
+    },
+    {
+      "Individual1": "torso",
+      "Point1": "ToArmLeft",
+      "Individual2": "armleft",
+      "Point2": "ToPart2"
+    },
+    {
+      "Individual1": "armleft",
+      "Point1": "ToHead",
+      "Individual2": "snaketorso2",
+      "Point2": "ToPart2"
+    },
+    {
+      "Individual1": "snaketorso2",
+      "Point1": "ToHead",
+      "Individual2": "head2",
+      "Point2": "ToBody"
+    },
+    {
+      "Individual1": "head2",
+      "Point1": "ToEyes",
+      "Individual2": "eyes2",
+      "Point2": "ToFace"
+    },
+    {
+      "Individual1": "torso",
+      "Point1": "ToArmRight",
+      "Individual2": "armright",
+      "Point2": "ToBody"
+    },
+    {
+      "Individual1": "armright",
+      "Point1": "ToHand",
+      "Individual2": "handright",
+      "Point2": "ToArm"
+    },
+    {
+      "Individual1": "torso",
+      "Point1": "ToLegs",
+      "Individual2": "legs",
+      "Point2": "ToBody"
+    }
+  ]
+}
+```
+
+<h3 align="center">
+  <img src="Assets/markup1.png" alt="Display of the markup file" />
+</h3>
+
+### Another markup file
+```
+{
+  "Definitions": [
+    {
+      "Identifier": "torso",
+      "Type": "humantorso"
+    },
+    {
+      "Identifier": "armleft",
+      "Type": "snaketorso"
+    },
+    {
+      "Identifier": "armright",
+      "Type": "humanarmright"
+    },
+    {
+      "Identifier": "eyes",
+      "Type": "humaneyes"
+    },
+    {
+      "Identifier": "handright",
+      "Type": "humanhandsright"
+    },
+    {
+      "Identifier": "hat",
+      "Type": "hat2"
+    },
+    {
+      "Identifier": "head",
+      "Type": "humanhead"
+    },
+    {
+      "Identifier": "mouth",
+      "Type": "humanmouth"
+    },
+    {
+      "Identifier": "legs",
+      "Type": "humanlegs"
+    },
+    {
+      "Identifier": "horn1",
+      "Type": "devilhornleft"
+    },
+    {
+      "Identifier": "horn2",
+      "Type": "devilhornright"
+    },
+    {
+      "Identifier": "snaketorso2",
+      "Type": "snaketorso"
+    },
+    {
+      "Identifier": "head2",
+      "Type": "devilshead"
+    },
+    {
+      "Identifier": "eyes2",
+      "Type": "devilseyes"
+    }
+  ],
+  "Relations": [
+    {
+      "Individual1": "torso",
+      "Point1": "ToHead",
+      "Individual2": "head",
+      "Point2": "ToBody"
+    },
+    {
+      "Individual1": "head",
+      "Point1": "ToHat",
+      "Individual2": "hat",
+      "Point2": "ToHead"
+    },
+    {
+      "Individual1": "head",
+      "Point1": "ToEarLeft",
+      "Individual2": "horn1",
+      "Point2": "ToHead"
+    },
+    {
+      "Individual1": "head",
+      "Point1": "ToEarRight",
+      "Individual2": "horn2",
+      "Point2": "ToHead"
+    },
+    {
+      "Individual1": "head",
+      "Point1": "ToMouth",
+      "Individual2": "eyes",
+      "Point2": "ToFace"
+    },
+    {
+      "Individual1": "head",
+      "Point1": "ToEyes",
+      "Individual2": "mouth",
+      "Point2": "ToFace"
+    },
+    {
+      "Individual1": "torso",
+      "Point1": "ToArmLeft",
+      "Individual2": "armleft",
+      "Point2": "ToPart2"
+    },
+    {
+      "Individual1": "armleft",
+      "Point1": "ToHead",
+      "Individual2": "snaketorso2",
+      "Point2": "ToPart2"
+    },
+    {
+      "Individual1": "snaketorso2",
+      "Point1": "ToHead",
+      "Individual2": "head2",
+      "Point2": "ToBody"
+    },
+    {
+      "Individual1": "head2",
+      "Point1": "ToEyes",
+      "Individual2": "eyes2",
+      "Point2": "ToFace"
+    },
+    {
+      "Individual1": "torso",
+      "Point1": "ToArmRight",
+      "Individual2": "armright",
+      "Point2": "ToBody"
+    },
+    {
+      "Individual1": "armright",
+      "Point1": "ToHand",
+      "Individual2": "handright",
+      "Point2": "ToArm"
+    },
+    {
+      "Individual1": "torso",
+      "Point1": "ToLegs",
+      "Individual2": "legs",
+      "Point2": "ToBody"
+    }
+  ]
+}
+```
+
+<h3 align="center">
+  <img src="Assets/markup8.png" alt="Display of the markup file" />
+</h3>
 
 # Development
 
