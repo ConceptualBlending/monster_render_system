@@ -811,26 +811,27 @@ In *Medusa/Source* you will find the entire project's source files. The next tab
 ```
 function buildUniverseAndDraw() : bitmap
 {
-   universe := empty set of (name, bitap, list of local connection points) and relations
+   universe := empty set of (name, bitmap, list of local connection points) and relations
    result := empty bitmap
     
    foreach (relation in relations of markup file) {
-      universe <- add inferInformations(relation.Individual1);
-      universe <- add inferInformations(relation.Individual2);
-      universe <- relate and move (relation.Individual1, *, relation.Point1) to (relation.Individual2, *, relation.Point2)) 
-                                   based on global positions of individual local connection points
+      universe <- add inferInformations(Individual1 in relation);
+      universe <- add inferInformations(Individual2 in relation);
+      universe <- relate, group and move 
+                     (relation.Individual1, *, relation.Point1) to (relation.Individual2, *, relation.Point2)) 
+                     consider global positions of individual local connection points
    }
 	  
-   correction := vector (x,y) with calucated offset to move all object into clipping area
+   correction := vector (x,y) with calculated offset to move all object into clipping area
    result <- create clipping area with width := universe overall width, height := universe overall height
 	
    forach (item in universe)
-      draw item into "result" after appyling correction movement
+      draw item into "result" after appyling correction translation
 		  
    return result
 }
 
-function inferInformations(individualName) : (name, bitap, list of local connection points)
+function inferInformations(individualName) : (name, bitmap, list of local connection points)
 {
    referencePoints := empty list
    def := find definition of "individualName" in markup file
@@ -841,3 +842,14 @@ function inferInformations(individualName) : (name, bitap, list of local connect
    return (individualName, bitmap, referencePoints)
 }
 ```		
+
+# License
+This project is licensed under the terms of the GNU LESSER GENERAL PUBLIC LICENSE. See the LICENSE file.
+
+# Contributing
+1. Discuss about your idea in a new issue
+2. Fork Medusa (https://github.com/ConceptualBlending/monster_render_system)
+3. Create your one new feature branch (git checkout -b my-feature)
+4. Commit your changes (git commit -am 'Add some feature')
+5. Push to the branch (git push origin my-feature)
+6. Create a new Pull Request
