@@ -257,54 +257,16 @@ Type :done if you finished your input or :cancel to abort.
 
 After *>* you can type line by line you *markup file* ending with *:done*. Although it is possible to create markups on the fly with this, the standard input flag will mostly used to transfer output from another application directly to Medusa without the need of a temporary file. This is very handy when embedding Medusa inside a workflow. Suppose you have an application called *monsterman* which produces Medusa markup files based on some other input and requirements. You can transfer the output of *monsterman* to Medusa with 
 ```
-less monsterman | mono medusa.exe -w --use-stdin -n ../../Examples/Repository/Repository.json
+$ monsterman | mono medusa.exe -w --use-stdin -n ../../Examples/Repository/Repository.json
 ```
 In this example Medusa runs in window mode without any file output. Because medusa uses JSON as format you can consider to use a format converter between the output of *monsterman* and Medusa if *monsterman* produces non-Markup-files. A pseudo call with a converter tool, let's call it *convert*, between *monsterman*'s output and Medusa's input is
 ```
-less monsterman | convert | mono medusa.exe -w --use-stdin -n ../../Examples/Repository/Repository.json
+$ monsterman | convert | mono medusa.exe -w --use-stdin -n ../../Examples/Repository/Repository.json
 ```
 
 # Development
 
 Medusa is written in pure C# using the standard components .NET framework. 
-
-Installation Instructions
-=====================
-
-Medusa is written in C# using MonoGame. If you want to run this tool you need the [Mono](http://www.mono-project.com/) platform and [MonoGame](http://www.monogame.net/) installed on your machine. Although the target platforms are Linux and Mac OS you should be able to compile and run in on Windows using .NET and XNA. 
-
-Linux
------
-
-```
-sudo apt-get install mono-complete
-```
-
-tetsed on Ubuntu.
-
-Mac OS
-------
-
-Download and install [Mono Runtime Environment Package](http://www.mono-project.com/download/) if don't have installed it already. For further instructions see [Introduction to Mono on OS X](http://www.mono-project.com/docs/about-mono/supported-platforms/osx/).
-
-
-First steps
------------
-
-Navigate to **Medusa/Binaries/Release** and try in your terminal
-
-```
-less ../../Examples/MonsterMarkup/stdin.txt | mono medusa.exe -w --use-stdin -n ../../Examples/Repository/Repository.json
-```
-
-Development Instructions
-=====================
-
-Dependencies
-------------
-[Json.NET](http://james.newtonking.com/json) tested with .NET 3.5 version, which should be referenced when compiling the source. 
-
-* TODO: Use *unsafe* option.
 
 Linux
 -----
@@ -319,26 +281,11 @@ Using [MonoDevelop/Xamarin Studio](http://xamarin.com/) as development environme
 
 Windows
 -----
-This project was not tested on Windows but should be buildable with Visual C# Express and XNA GameStudio. 
-
-Usage Instructions
-=====================
+This project was not tested on Windows but should be buildable with [Visual C# Express](http://www.visualstudio.com/en-us/products/visual-studio-express-vs.aspx). 
 
 
-Example and File Formats
-========================
-
-The following example shows how to create a simple repository at *~/repository* and an input file *~/input/input.json*. The result of rendering will be stored in *~/output/myfile.png.* The repository will contain 4 images and the repository index file. Inside the index file three of those four images were indexed, each then providing some connection points. 
-
-Repository content
--------------------
+Dependencies
+------------
+[Json.NET](http://james.newtonking.com/json) tested with .NET 3.5 version, which should be referenced when compiling the source. 
 
 
-Markup files
--------------------
-
-```
-To render the markup file relative to the repository, call:
-```
-medusa /home/me/repository/myrep.json /home/me/input/input.json /home/me/output/myfile.png
-```
