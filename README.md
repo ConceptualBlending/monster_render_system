@@ -61,8 +61,13 @@ There are only two basic concepts to know if you want to use Medusa.
 
 A **repository** for Medusa is an index directory containing several images which are associated to *types*. Each type contains a list of points (*connection points*) with which you can express *relations* between typed *individuals*. For a set of individuals and releations between them, Medua will infer the connection points depending the individuals type and will take care to automatically arrange each individual to match your definition. 
 
-How an individual is descripted is done with a so called **markup file**. Basically a (new) individual contains of relations between existing ones (which are also defined inside the markup file). Each of those individuals must be typed with a type inside the repository except the new one. Whereas you have to build the repository at least one time, you can build any combination of typed individuals if you want with less effort. In most use cases you will link the repository index and one markup file to the Medusa binary. 
+How an individual is descripted is done with a so called **markup file**. Basically a (new) individual contains of relations between existing ones (which are also defined inside the markup file). Each of those individuals must be typed with a type inside the repository except the new one. Whereas you have to build the repository at least one time, you can build any combination of typed individuals if you want with less effort. In most use cases you will link the repository index and one markup file to the Medusa binary by typing
 
+```
+$ mono medusa.exe <path to repository index file> <path to markup input file> <path to output file>
+```
+
+# Customise Input and Repository
 ## Repositories
 
 A repository is a directory containing images indexed by a repository index file. Assume the following directory content:
@@ -151,9 +156,114 @@ The index file content is
 **Important note**: Pleace take for all assets, files, references or external resources case-sensivity into account.
 
 ## Markup files
+This file contains individual definitions (based on a type inside the repository) and relation definitions which conntects and move individuals. Not each type in the repository is required to use. In the following we want to create 4 individuals. Two of them are from type *Type2* whereas one is from type *Type3* and the other is *Typpe4*. Inside the definitions part we connect some connections points of those defined individuals.
 
+The markup file content is:
+```
+{
+  "Definitions": [
+    {
+      "Identifier": "i1",
+      "Type": "Type2"
+    },
+    {
+      "Identifier": "i2",
+      "Type": "Type2"
+    },
+    {
+      "Identifier": "i3",
+      "Type": "Type3"
+    },
+    {
+      "Identifier": "i4",
+      "Type": "Type4"
+    }
+  ],
+  "Relations": [
+    {
+      "Individual1": "i1",
+      "Point1": "Point1",
+      "Individual2": "i3",
+      "Point2": "Point1"
+    },
+    {
+      "Individual1": "i2",
+      "Point1": "Point2",
+      "Individual2": "i3",
+      "Point2": "Point2"
+    },
+    {
+      "Individual1": "i3",
+      "Point1": "Point1",
+      "Individual2": "i1",
+      "Point2": "Point2"
+    },
+    {
+      "Individual1": "i4",
+      "Point1": "Point1",
+      "Individual2": "i2",
+      "Point2": "Point1"
+    }
+  ]
+}
+```
+## Running Medusa with your files
+It is recommanded to run medusa via terminal. Running medusa without any additional argument in the command line will open the help information which is the same as
+```
+$ mono medusa.exe --help
+```
+The general usage is as follows
+```
+$ mono medusa.exe [options] repositroy-file [markup-file] [output-file]
+```
+Please note if you set *repositroy-file*, *markup-file* and *output-file* they must be *absolute paths* or relative to the current working directory. It is not recommanded to use *~* as shortcut for your home directory. 
 
-# Customise Input and Repository
+## General usage and command line options
+
+The following table shows possible *option* flags.
+
+| Short        | Long           | Description  |
+| ---        | ---           | ---  |
+|-h | --help | Show this help and quit|
+|-e | --show-examples | Show examples and quit|
+|-w | --window | Show a window containg the rendered image|
+|-o | --overwrite | Allows overwriting existing output files|
+| | --use-stdin | Reads the input markup file from stdin|
+|-n | --no-output | Disable output file creation|
+
+Combinations of short arguments like *-wo* are **not** supported. Please use *-w -o* instead.
+
+Arguments:
+
+| Name       | Required | Description  |
+| ---       | --- | ---  |
+| repositroy-file | Yes | Path to a .json repository file
+| markup-file | Not required, iff *--use-stdin* is set | Path to a .json input file containing the markup
+| output-file | Not required, iff *-w* is set | Path to a not existing file for output
+
+**Notes**: The option -n cannot stand alone without the -w option whereas it is possible to generate an output file and display it the same time.If -n is not set you have to set the [output-file] argument. The [markup-file] is not allowed if and only if *--use-stdin* flag is set.
+
+## Examples
+Medusa comes with an example repository (Medusa/Examples/Repository/Repository.json) and some markup files to play with (Examples/MonsterMarkup/*.json). 
+
+### Use of standard input
+You can put your markup directly as an input stream into Medusa instead of linking to a file. This is possible with the *--use-stdin* flag. An example call is
+
+```
+$ mono medusa.exe --use-stdin --no-output ../../Examples/Repository/Repository.json
+Type :done if you finished your input or :cancel to abort.
+>
+```
+
+After *>* you can type line by line you *markup file* ending with *:done*. Although it is possible to create markups on the fly with this, the standard input flag will mostly used to transfer output from another application directly to Medusa without the need of a temporary file. This is very handy when embedding Medusa inside a workflow. Suppose you have an application called *monsterman* which produces Medusa markup files based on some other input and requirements. You can transfer the output of *monsterman* to Medusa with 
+```
+less monsterman | mono medusa.exe -w --use-stdin -n ../../Examples/Repository/Repository.json
+```
+In this example Medusa runs in window mode without any file output. Because medusa uses JSON as format you can consider to use a format converter between the output of *monsterman* and Medusa if *monsterman* produces non-Markup-files. A pseudo call with a converter tool, let's call it *convert*, between *monsterman*'s output and Medusa's input is
+```
+less monsterman | convert | mono medusa.exe -w --use-stdin -n ../../Examples/Repository/Repository.json
+```
+
 # Development
 
 Medusa is written in pure C# using the standard components .NET framework. 
@@ -213,54 +323,7 @@ This project was not tested on Windows but should be buildable with Visual C# Ex
 
 Usage Instructions
 =====================
-It is recommanded to run medusa via terminal. Because plattform differences, the process is a bit different for linux and OS X. In general, running medusa without any additional command line will open the help information which is the same as
-```
-$./Medusa2 --help
-```
-```
-mono medusa.exe [options] repositroy-file [markup-file] [output-file]
-```
-Use *--help* for more information. If set *repositroy-file*, *markup-file* and *output-file* must be **absolute paths**.
 
-Running Medusa on OS X
-----------------------
-
-```
-$cd Medusa/Binaries/Release/Medusa2.app/Contents/MacOS/
-$./Medusa2 REP_FILE INPUT_FILE [OUTPUT_FILE]
-```
-
-Running Medusa on Windows
-----------------------
-The engine underlying medusa is *Mono/MonoGame* which is compatible to *.NET/XNA*. Within Visual Studio you should be able to open the project solution file and compile it with XNA GameStudio AddIn but this was not tested.
-
-General usage and command line options
---------------------------------------
-
-Usage:
-```
-medusa [options] repositroy-file markup-file [output-file]
-```
-
-Options:
-
-| Short        | Long           | Description  |
-| ---        | ---           | ---  |
-| -h, | --help |  Show this help
-| -w, | --window | Show a window containg the rendered image
-| -v, | --verbose |  Display more information during runtime
-| -p, | --points | Display connection points
-| -n, | --no-output | Disable output file creation
-
-Arguments:
-
-| Name       | Required | Description  |
-| ---       | --- | ---  |
-| repositroy-file | Yes | Path to a .json repository file
-| markup-file | Yes | Path to a .json input file containing the markup
-| output-file | Optional, if -w flag | Path to a not existing file for output
-
-**Notes**: The option *-n* cannot stand alone without the *-w* option whereas it is possible to generate an output file and display it the same time. If *-n* is not set you have to set the *[output-file]* argument.
 
 Example and File Formats
 ========================
@@ -273,56 +336,7 @@ Repository content
 
 Markup files
 -------------------
-This file contains individual definitions (based on a type inside the repository) and relation definitions which conntects and move individuals. Not each type in the repository is required to use. In the following we want to create 4 individuals. Two of them are from type *Type2* whereas one is from type *Type3* and the other is *Typpe4*. Inside the definitions part we connect some connections points of those defined individuals.
 
-The markup file content is:
-```
-{
-  "Definitions": [
-    {
-      "Identifier": "i1",
-      "Type": "Type2"
-    },
-    {
-      "Identifier": "i2",
-      "Type": "Type2"
-    },
-    {
-      "Identifier": "i3",
-      "Type": "Type3"
-    },
-    {
-      "Identifier": "i4",
-      "Type": "Type4"
-    }
-  ],
-  "Relations": [
-    {
-      "Individual1": "i1",
-      "Point1": "Point1",
-      "Individual2": "i3",
-      "Point2": "Point1"
-    },
-    {
-      "Individual1": "i2",
-      "Point1": "Point2",
-      "Individual2": "i3",
-      "Point2": "Point2"
-    },
-    {
-      "Individual1": "i3",
-      "Point1": "Point1",
-      "Individual2": "i1",
-      "Point2": "Point2"
-    },
-    {
-      "Individual1": "i4",
-      "Point1": "Point1",
-      "Individual2": "i2",
-      "Point2": "Point1"
-    }
-  ]
-}
 ```
 To render the markup file relative to the repository, call:
 ```
