@@ -280,7 +280,7 @@ $ monsterman | convert | mono medusa.exe -w --use-stdin -n ../../Examples/Reposi
     },
     {
       "Identifier": "armleft",
-      "Type": "snaketorso"
+      "Type": "humanarmleft"
     },
     {
       "Identifier": "armright",
@@ -291,12 +291,16 @@ $ monsterman | convert | mono medusa.exe -w --use-stdin -n ../../Examples/Reposi
       "Type": "humaneyes"
     },
     {
+      "Identifier": "handleft",
+      "Type": "humanhandsleft"
+    },
+    {
       "Identifier": "handright",
       "Type": "humanhandsright"
     },
     {
       "Identifier": "hat",
-      "Type": "hat2"
+      "Type": "hat1"
     },
     {
       "Identifier": "head",
@@ -309,26 +313,6 @@ $ monsterman | convert | mono medusa.exe -w --use-stdin -n ../../Examples/Reposi
     {
       "Identifier": "legs",
       "Type": "humanlegs"
-    },
-    {
-      "Identifier": "horn1",
-      "Type": "devilhornleft"
-    },
-    {
-      "Identifier": "horn2",
-      "Type": "devilhornright"
-    },
-    {
-      "Identifier": "snaketorso2",
-      "Type": "snaketorso"
-    },
-    {
-      "Identifier": "head2",
-      "Type": "devilshead"
-    },
-    {
-      "Identifier": "eyes2",
-      "Type": "devilseyes"
     }
   ],
   "Relations": [
@@ -346,25 +330,13 @@ $ monsterman | convert | mono medusa.exe -w --use-stdin -n ../../Examples/Reposi
     },
     {
       "Individual1": "head",
-      "Point1": "ToEarLeft",
-      "Individual2": "horn1",
-      "Point2": "ToHead"
-    },
-    {
-      "Individual1": "head",
-      "Point1": "ToEarRight",
-      "Individual2": "horn2",
-      "Point2": "ToHead"
-    },
-    {
-      "Individual1": "head",
-      "Point1": "ToMouth",
+      "Point1": "ToEyes",
       "Individual2": "eyes",
       "Point2": "ToFace"
     },
     {
       "Individual1": "head",
-      "Point1": "ToEyes",
+      "Point1": "ToMouth",
       "Individual2": "mouth",
       "Point2": "ToFace"
     },
@@ -372,31 +344,19 @@ $ monsterman | convert | mono medusa.exe -w --use-stdin -n ../../Examples/Reposi
       "Individual1": "torso",
       "Point1": "ToArmLeft",
       "Individual2": "armleft",
-      "Point2": "ToPart2"
-    },
-    {
-      "Individual1": "armleft",
-      "Point1": "ToHead",
-      "Individual2": "snaketorso2",
-      "Point2": "ToPart2"
-    },
-    {
-      "Individual1": "snaketorso2",
-      "Point1": "ToHead",
-      "Individual2": "head2",
       "Point2": "ToBody"
-    },
-    {
-      "Individual1": "head2",
-      "Point1": "ToEyes",
-      "Individual2": "eyes2",
-      "Point2": "ToFace"
     },
     {
       "Individual1": "torso",
       "Point1": "ToArmRight",
       "Individual2": "armright",
       "Point2": "ToBody"
+    },
+    {
+      "Individual1": "armleft",
+      "Point1": "ToHand",
+      "Individual2": "handleft",
+      "Point2": "ToArm"
     },
     {
       "Individual1": "armright",
@@ -415,7 +375,7 @@ $ monsterman | convert | mono medusa.exe -w --use-stdin -n ../../Examples/Reposi
 ```
 
 <h3 align="center">
-  <img src="Assets/markup1.png" alt="Display of the markup file" />
+  <img src="Assets/markup2.png" alt="Display of the markup file" />
 </h3>
 
 ### Another markup file
