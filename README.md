@@ -18,6 +18,7 @@ Get in contact with the developer on Twitter: [@marcus_pinnecke](https://twitter
     <a href="#installation">Installation</a> &bull; 
     <a href="#quick-start">Quick Start</a> &bull; 
     <a href="#customise-input-and-repository">Customise</a> &bull; 
+    <a href="#example">Example</a> &bull; 
     <a href="#development">Development</a> &bull; 
 </p>
 -------
@@ -263,6 +264,26 @@ In this example Medusa runs in window mode without any file output. Because medu
 ```
 $ monsterman | convert | mono medusa.exe -w --use-stdin -n ../../Examples/Repository/Repository.json
 ```
+# Example
+
+## Repository file
+```
+```
+### One markup file
+```
+```
+
+<h3 align="center">
+  <img src="Assets/markup1.png" alt="Display of the markup file" />
+</h3>
+
+### Another markup file
+```
+```
+
+<h3 align="center">
+  <img src="Assets/markup2.png" alt="Display of the markup file" />
+</h3>
 
 # Development
 
