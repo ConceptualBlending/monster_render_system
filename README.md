@@ -7,7 +7,7 @@
 Medusa
 ============
 
-###### Medusa let you display a visual version of a given ontology's individual. It's supports you with a easy to use description format (JSON) for *concepts* in a declarative way. You can use it in console-only linux environments as well as in GUI mode where it can optional shows the output directly to the screen. If you want you can transfer you *concept* definition as a file or directly through std-in to it and store the output to a place in you file systems. This leads to an easy integration in a web like workflow where you can represent your ontology's individual as constructed by the user.
+###### Medusa let you display a visual version of a given ontology's individual. It supports you with an easy to use description format (JSON) for *concepts* in a declarative way. You can use it in console-only linux environments as well as in GUI mode where it can optional shows the output directly to the screen. If you want you can transfer you *concept* definition as a file or through std-in to it and store the output to a place in you file system. This leads to an easy integration in a web like workflow where you can represent your ontology's individual as constructed by the user.
 
 This project is part of conceptual blending project, see https://github.com/ConceptualBlending.
 
@@ -29,13 +29,13 @@ Get in contact with the developer on Twitter: [@marcus_pinnecke](https://twitter
 Medusa is very easy to use and doesn't not need a dedicated installation script itself. However, because it runs on .NET it is required that your machine has the .NET runtime or compatible runtime installed. The Medusa repository comes with a runable copy inside. Lets start with copying the repository to your local file system. After this you can install a .NET runtime if don't have one already. Finally you can navigate to Medusa's binary and run it.
 
 ## Step 1: Make a local copy of the repository
-To get a personal copy of Medusa clone it's by typing the following inside a terminal
+To get a personal copy of Medusa clone it by typing the following inside a terminal
 
 ```
-$git clone https://github.com/ConceptualBlending/monster_render_system.git
+git clone https://github.com/ConceptualBlending/monster_render_system.git
 ```
 
-On Windows machines you may have to install an git system first. An alternativ way is to download the repository as zip file in the right side of this page.
+On Windows machines you may have to install a git system first. An alternativ way is to download the repository as zip file.
 
 Please make sure that your machine runs a .NET runtime because Medusa requires it. If you don't run Windows take a look at [Mono](http://www.mono-project.com/) which is a free port of .NET for Linux and OS X and others. 
 
@@ -47,7 +47,7 @@ If you want to run Medusa on OS X just download the [Mono Package for OS X](http
 If you are on a Linux machine type the following inside a terminal
 
 ```
-$ sudo apt-get install mono-complete
+sudo apt-get install mono-complete
 ```
 
 This will automatically set up you environment in order to run .NET/Mono applications.
@@ -55,21 +55,21 @@ This will automatically set up you environment in order to run .NET/Mono applica
 ## Step 3: Test that everything works
 Navigate to the **Medusa/Binaries/Release/** inside your local copy and run
 ```
-$ mono medusa.exe --window --no-output ../../Examples/Repository/Repository.json ../../Examples/MonsterMarkup/markup1.json
+mono medusa.exe --window --no-output ../../Examples/Repository/Repository.json ../../Examples/MonsterMarkup/markup1.json
 ```
-This will open Medusa in window mode which directly displays an individual defined inside the examples directory. The result won't be stored and get lost after you close that window. Please note that the **mono** prefix is only required if you are on a non-Windows machine running Mono.
+This will open Medusa in window mode which directly displays an individual defined inside the examples directory. The result won't be stored and get lost after you close that window. However, please note that **mono** prefix is only required if you are on a non-Windows machine running Mono.
 
 # Quick Start
 There are only two basic concepts to know if you want to use Medusa. 
 
-A **repository** for Medusa is an index directory containing several images which are associated to *types*. Each type contains a list of points (*connection points*) with which you can express *relations* between typed *individuals*. For a set of individuals and releations between them, Medua will infer the connection points depending the individuals type and will take care to automatically arrange each individual to match your definition. 
+A **repository**, in the sense of Medusa, is an indexed directory containing several images which are associated to *types*. Each type contains of a list of points (*connection points*). With these points you can express *relations* between typed *individuals* later on. For a set of individuals and releations between them, Medua will infer the connection points depending the individuals type and will take care to automatically arrange each individual to match your definition. 
 
 How an individual is descripted is done with a so called **markup file**. Basically a (new) individual contains of relations between existing ones (which are also defined inside the markup file). Each of those individuals must be typed with a type inside the repository except the new one. Whereas you have to build the repository at least one time, you can build any combination of typed individuals if you want with less effort. In most use cases you will link the repository index and one markup file to the Medusa binary by typing
 
 ```
-$ mono medusa.exe <path to repository index file> <path to markup input file> <path to output file>
+mono medusa.exe <path to repository index file> <path to markup input file> <path to output file>
 ```
-
+Please note, that Medusa is a renderer for individuals. That means your recently created new individual will not be imported into your repository - it will be just displayed.
 # Customise Input and Repository
 ## Repositories
 
@@ -85,7 +85,7 @@ A repository is a directory containing images indexed by a repository index file
       |   |-- c.png # Image 4
 ```
 
-The repository index file *myrep.jso* contains (relative) paths to images inside the repository as well as a unique name for each image and a list of defined connection points. Not each file inside the repository index file directory should be named here. However, if an is listed inside the repository index file, make sure the file exists. Assume creating four *types* based on *A/a.png*, *A/b.png*, *B/b.png*. Please note that a type is only identified by it's name. As you will see we take one image file twice (*A/a.png*) and have to equal images (*A/b.png*, *B/b.png*). However the following file creates four different *types*. Please ignore the (required) fields *MedusaFormatToken* and *Version* for now and use them as below. You should personalize your repository with the following properties: *RepositoryName*, *RepositoryDescription* and a list of *authors*. 
+The repository index file *myrep.jso* contains (relative) paths to images inside the repository as well as an unique name for each image and a list of defined connection points. Not each file inside the repository index file directory should be named here. However, if an image is listed inside the repository index file, make sure the file exists. Assume creating four *types* based on *A/a.png*, *A/b.png*, *B/b.png*. Please note that a type is only identified by it's name. As you will see we take one image file twice (*A/a.png*) and have to equal images (*A/b.png*, *B/b.png*). The following file descripes four different *types*. Please ignore the (required) fields *MedusaFormatToken* and *Version* for now and use them as below. You should personalize your repository with the following properties: *RepositoryName*, *RepositoryDescription* and a list of *authors*. 
 
 The index file content is
 ```
@@ -156,10 +156,10 @@ The index file content is
   ]
 }
 ```
-**Important note**: Pleace take for all assets, files, references or external resources case-sensivity into account.
+**Important note**: Please note, that each string inside this file is case-sensivity.
 
 ## Markup files
-This file contains individual definitions (based on a type inside the repository) and relation definitions which conntects and move individuals. Not each type in the repository is required to use. In the following we want to create 4 individuals. Two of them are from type *Type2* whereas one is from type *Type3* and the other is *Typpe4*. Inside the definitions part we connect some connections points of those defined individuals.
+This file contains individual definitions (based on a type inside the repository) and relation definitions which connects and move individuals. Not each type in the repository is required to use. In the following we want to create 4 individuals. Two of them are from type *Type2* whereas one is from type *Type3* and the other is *Typpe4*. Inside the definitions part we connect some connections points of those defined individuals.
 
 The markup file content is:
 ```
@@ -213,11 +213,11 @@ The markup file content is:
 ## Running Medusa with your files
 It is recommanded to run medusa via terminal. Running medusa without any additional argument in the command line will open the help information which is the same as
 ```
-$ mono medusa.exe --help
+mono medusa.exe --help
 ```
 The general usage is as follows
 ```
-$ mono medusa.exe [options] repositroy-file [markup-file] [output-file]
+mono medusa.exe [options] repositroy-file [markup-file] [output-file]
 ```
 Please note if you set *repositroy-file*, *markup-file* and *output-file* they must be *absolute paths* or relative to the current working directory. It is not recommanded to use *~* as shortcut for your home directory. 
 
@@ -241,10 +241,10 @@ Arguments:
 | Name       | Required | Description  |
 | ---       | --- | ---  |
 | repositroy-file | Yes | Path to a .json repository file
-| markup-file | Not required, iff *--use-stdin* is set | Path to a .json input file containing the markup
-| output-file | Not required, iff *-w* is set | Path to a not existing file for output
+| markup-file | Not allowed, iff *--use-stdin* is set | Path to a .json input file containing the markup
+| output-file | Not allowed, iff *-w* is set | Path to a not existing file for output
 
-**Notes**: The option -n cannot stand alone without the -w option whereas it is possible to generate an output file and display it the same time.If -n is not set you have to set the [output-file] argument. The [markup-file] is not allowed if and only if *--use-stdin* flag is set.
+**Notes**: The option *-n* cannot stand alone without the *-w* option whereas it is possible to generate an output file and display it the same time. If *-n* is not set you have to set the *[output-file]* argument. The *[markup-file]* is not allowed if and only if *--use-stdin* flag is set.
 
 ## Examples for Reposities and Markup Files
 Medusa comes with an example repository (Medusa/Examples/Repository/Repository.json) and some markup files to play with (Examples/MonsterMarkup/*.json). 
@@ -253,18 +253,20 @@ Medusa comes with an example repository (Medusa/Examples/Repository/Repository.j
 You can put your markup directly as an input stream into Medusa instead of linking to a file. This is possible with the *--use-stdin* flag. An example call is
 
 ```
-$ mono medusa.exe --use-stdin --no-output ../../Examples/Repository/Repository.json
+mono medusa.exe --use-stdin --no-output ../../Examples/Repository/Repository.json
+```
+Medusa will prompt you to insert your *markup file* directly into *std-in*
+```
 Type :done if you finished your input or :cancel to abort.
 >
 ```
-
 After *>* you can type line by line you *markup file* ending with *:done*. Although it is possible to create markups on the fly with this, the standard input flag will mostly used to transfer output from another application directly to Medusa without the need of a temporary file. This is very handy when embedding Medusa inside a workflow. Suppose you have an application called *monsterman* which produces Medusa markup files based on some other input and requirements. You can transfer the output of *monsterman* to Medusa with 
 ```
-$ monsterman | mono medusa.exe -w --use-stdin -n ../../Examples/Repository/Repository.json
+monsterman | mono medusa.exe -w --use-stdin -n ../../Examples/Repository/Repository.json
 ```
 In this example Medusa runs in window mode without any file output. Because medusa uses JSON as format you can consider to use a format converter between the output of *monsterman* and Medusa if *monsterman* produces non-Markup-files. A pseudo call with a converter tool, let's call it *convert*, between *monsterman*'s output and Medusa's input is
 ```
-$ monsterman | convert | mono medusa.exe -w --use-stdin -n ../../Examples/Repository/Repository.json
+monsterman | convert | mono medusa.exe -w --use-stdin -n ../../Examples/Repository/Repository.json
 ```
 # Example
 This sections shows more complex examples, which are extracted from *Medusa/Examples/* inside the repository. Assume describing first a human-like individual with a typical human body and a hat then you will write something like the first markup file in this section. When you then want to switch to a similar individual wich is quite human-like but has a snake and with a tailing devils head, the second markup file shows how to do this.
@@ -501,7 +503,7 @@ First take a look at a snapshot of the repository index file, which maps types l
 }
 ```
 ### One markup file
-The following file (*Examples/MonsterMarkup/markup2.json*) shows how to describe a human individual and shows Medusa's output below.
+The following file (*Examples/MonsterMarkup/markup2.json*) shows how to describe a human individual and displays Medusa's output below.
 ```
 {
   "Definitions": [
@@ -766,14 +768,11 @@ This section provides a brief introduction how to constribute or maintain Medusa
 ### Linux
 The MDK is already installed, if you got Mono like above. Otherwhise type 
 ```
-$ sudo apt-get install mono-complete
+sudo apt-get install mono-complete
 ```
 in your terminal. 
 
-Using [MonoDevelop](http://www.monodevelop.com/) as development environment is recommended. If you don't have this installed already type the following into your terminal.
-```
-sudo apt-get install libmonogame-cil-dev monodevelop-monogame
-```
+Using [MonoDevelop](http://www.monodevelop.com/) as development environment is recommended.
 
 ### Mac OS
 Using [MonoDevelop/Xamarin Studio](http://xamarin.com/) as development environment is recommended. You can download and install the packages provided by Xamarin. If you don't have the MDK installed, the package isntaller should do this automatically for you.
@@ -786,7 +785,7 @@ This project was not tested on Windows but should be buildable with [Visual C# E
 Medusa comes with a Visual Studio compatible Xamarin Studio solution file (**Medusa.sln**). Opening and building it with your IDE should work without any issues. Please note, that there is a dependency to Json.NET which you have to solve before the first bild.
 
 ### Dependencies
-Medusa uses [Json.NET](http://james.newtonking.com/json) to parse Json files but does not contain these packages. Just download the latest stable version and reference the project to it. To be portable between different OS types we experienced that Json.NET built for .NET 3.5 fits best. 
+Medusa uses [Json.NET](http://james.newtonking.com/json) to parse Json files but does not contain this packages. Just download the latest stable version and reference the project to it. To be portable between different OS types we experienced that Json.NET built for .NET 3.5 fits best. 
 
 ## Project overview
 In *Medusa/Source* you will find the entire project's source files. The next table provides a short overview about the main responsibilities:
@@ -800,13 +799,13 @@ In *Medusa/Source* you will find the entire project's source files. The next tab
 | Core/ITextureRepository.cs           | Interface for objects which devliver bitmap ressources for types
 | Core/MedusaRenderer.cs               | The core component which performs the drawing
 | Core/ReferencePoint.cs               | An implementation of the connection point concept
-| Core/ReferencePointContainer.cs      | An list of connection points, related to a given type
+| Core/ReferencePointContainer.cs      | A list of connection points, related to a given type
 | Core/Universe.cs                     | The set of all known (predefined) individuals which builds up the output
 | Forms/ImageViewer.cs                 | A window to show the output directly to the user
-| IO/FileSystemTextureRepository.cs    | An implementation of ITextureRepository which loads bitmaps from the file system
+| IO/FileSystemTextureRepository.cs    | An implementation of ITextureRepository which loads images from the file system
 | IO/Repository.cs                     | The correspondending class to repository index files, serializable by Json.NET
 | IO/MonsterMarkup.cs                  | The correspondending class to markup files, serializable by Json.NET
-| IO/Validator.cs                      | A class which checks several constrains to markups and repositories.
+| IO/Validator.cs                      | A class which checks several constraints to markups and repositories.
 | Utils/Vector2.cs                     | Simple 2D vectors
 
 ### Core Algorithm Outline
